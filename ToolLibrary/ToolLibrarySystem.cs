@@ -4,33 +4,66 @@ using System.Text;
 
 namespace ToolLibrary
 {
-    interface iToolLibrarySystem
+    class ToolLibrarySystem : iToolLibrarySystem
     {
-        void add(iTool tool); // add a new tool to the system
+        public void add(iTool tool)
+        {
+            throw new NotImplementedException();
+        }
 
-        void add(iTool tool, int quantity); //add new pieces of an existing tool to the system
+        public void add(iTool tool, int quantity)
+        {
+            throw new NotImplementedException();
+        }
 
-        void delete(iTool tool); //delte a given tool from the system
+        public void add(iMember member)
+        {
+            throw new NotImplementedException();
+        }
 
-        void delete(iTool tool, int quantity); //remove some pieces of a tool from the system
+        public void borrowTool(iMember member, iTool tool)
+        {
+            throw new NotImplementedException();
+        }
 
-        void add(iMember member); //add a new memeber to the system
+        public void delete(iTool tool)
+        {
+            throw new NotImplementedException();
+        }
 
-        void delete(iMember member); //delete a member from the system
+        public void delete(iTool tool, int quantity)
+        {
+            throw new NotImplementedException();
+        }
 
-        void display(string phoneNum); //given the contact phone number of a member, display all the tools that the member are currently renting
+        public void delete(iMember member)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void display(string phoneNum)
+        {
+            throw new NotImplementedException();
+        }
 
-        void displayTools(string toolType); // display all the tools of a tool type selected by a member
+        public void displayTools(string toolType)
+        {
+            throw new NotImplementedException();
+        }
 
-        void borrowTool(iMember member, iTool tool); //a member borrows a tool from the tool library
+        public void displayTopTHree()
+        {
+            throw new NotImplementedException();
+        }
 
-        void returnTool(iMember member, iTool tool); //a member return a tool to the tool library
+        public string[] listTools(iMember member)
+        {
+            throw new NotImplementedException();
+        }
 
-        string[] listTools(iMember member); //get a list of tools that are currently held by a given member
-
-        void displayTopTHree(); //Display top three most frequently borrowed tools by the members in the descending order by the number of times each tool has been borrowed.
-
-
+        public void returnTool(iMember member, iTool tool)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

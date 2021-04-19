@@ -6,10 +6,17 @@ namespace ToolLibrary
 {
     class Member : iMember
     {
-        public string FirstName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string LastName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string ContactNumber { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string PIN { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ContactNumber { get; set; }
+        public string PIN { get; set; }
+
+        public Member(string firstName, string lastName, string phoneNum) {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.ContactNumber = phoneNum;
+        }
+
 
         public string[] Tools => throw new NotImplementedException();
 
