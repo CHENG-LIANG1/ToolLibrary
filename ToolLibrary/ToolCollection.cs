@@ -10,59 +10,56 @@ namespace ToolLibrary
         const int NUMBER_OF_TYPES = 49;
         public int Number { get { return NUMBER_OF_TYPES; } }
 
-        public iTool[] toolCollection = new iTool[0];
+        private Tool[] toolCollection = new Tool[0];
 
         public ToolCollection() {
-            toolCollection = new iTool[200];
+            toolCollection = new Tool[200];
         }
 
-        public bool isSameName(iTool tool) {
+        private int hasSameName(Tool tool) {
 
             for (int i = 0; i < toolCollection.Length; i++) {
-                if (toolCollection[i] != null)
+                if (toolCollection[i] != null && toolCollection[i].Name == tool.Name)
                 {
-                    if (toolCollection[i].Name == tool.Name)
-                    {
-                        return true;
-                    }
+                    return i;
                 }
+            }
+            return -1;
+        }
+
+        public void add(Tool tool)
+        {
+            for (int i = 0; i < toolCollection.Length; i++)
+            {
+                if (toolCollection[i] == null)
+                {
+                    toolCollection[i] = tool;
+                    break;
+                }
+            }
+        }
+
+        public void delete(Tool tool)
+        {
+            int index = hasSameName(tool);
+            if (index >=0) {
+                toolCollection[index] = null;
+
+            }
+        }
+
+        public bool search(Tool tool) 
+        {
+            if (hasSameName(tool) >= 0) {
+                return true;
             }
 
             return false;
         }
 
-        public void add(iTool tool)
+        public Tool[] toArray()
         {
-            if (isSameName(tool))
-            {
-                tool.AvailableQuantity++;
-            }
-            else
-            {
-                for (int i = 0; i < toolCollection.Length; i++)
-                {
-                    if (toolCollection[i] == null)
-                    {
-                        toolCollection[i] = tool;
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void delete(iTool tool)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool search(iTool tool)
-        {
-            throw new NotImplementedException();
-        }
-
-        public iTool[] toArray()
-        {
-            throw new NotImplementedException();
+            return toolCollection;
         }
     }
 }

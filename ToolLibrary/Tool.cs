@@ -10,24 +10,34 @@ namespace ToolLibrary
         public int Quantity { get; set; }
         public int AvailableQuantity { get; set; }
         public int NoBorrowings { get; set; }
-        public string ToolType { get; set; }
+        public MemberCollection GetBorrowers
+        {
+            get
+            {
+                return toolBorrowers.InOrderTraverse();
+            }
+        }
 
-        public Tool(string name, string toolType) {
+        public Tool(string name) {
             this.Name = name;
-            this.ToolType = toolType;
         }
 
-        public iMemberCollection GetBorrowers => throw new NotImplementedException();
+        private MemberCollection toolBorrowers = new MemberCollection();
 
-        public void addBorrower(iMember member)
+
+        public void addBorrower(Member member)
         {
+            toolBorrowers.add(member);
             NoBorrowings++;
+            AvailableQuantity--;
 
         }
 
-        public void deleteBorrower(iMember member)
+        public void deleteBorrower(Member member)
         {
-            throw new NotImplementedException();
+            toolBorrowers.delete(member);
+            NoBorrowings--;
+            AvailableQuantity++;
         }
     }
 }

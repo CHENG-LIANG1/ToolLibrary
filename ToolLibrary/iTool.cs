@@ -32,14 +32,14 @@ namespace ToolLibrary
             set;
         }
 
-        iMemberCollection GetBorrowers  //get all the members who are currently holding this tool
+        MemberCollection GetBorrowers  //get all the members who are currently holding this tool
         {
             get;
         }
 
-        void addBorrower(iMember member); //add a member to the borrower list
+        void addBorrower(Member member); //add a member to the borrower list
 
-        void deleteBorrower(iMember member); //delte a member from the borrower list
+        void deleteBorrower(Member member); //delte a member from the borrower list
 
         string ToString(); //return a string containning the name and the available quantity quantity this tool 
 
