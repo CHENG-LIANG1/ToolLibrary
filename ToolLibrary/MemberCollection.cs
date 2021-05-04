@@ -4,18 +4,25 @@ using System.Text;
 
 namespace ToolLibrary
 {
-    class MemberCollection : iMemberCollection, iBSTree
+	// Author: Cheng Liang
+	// N10346911
+	class MemberCollection : iMemberCollection, iBSTree
     {
-        public int Number { get; set; }
+		// private fields
+		private BTreeNode root;
+		private int number;
 
-        private BTreeNode root;
+		// properties
+		public int Number { get { return number; } set { number = value; } }
 
+		// constructor
         public MemberCollection() {
             root = null;
         }
 
         public void add(Member member)
         {
+			number++;
             if (root == null)
                 root = new BTreeNode(member);
             else
@@ -26,17 +33,21 @@ namespace ToolLibrary
         {
             if (member.CompareTo(ptr.Member) < 0)
             {
-                if (ptr.LChild == null)
-                    ptr.LChild = new BTreeNode(member);
-                else
-                    add(member, ptr.LChild);
+				if (ptr.LChild == null)
+					ptr.LChild = new BTreeNode(member);
+				else
+				{
+					add(member, ptr.LChild);
+				}
             }
             else
             {
-                if (ptr.RChild == null)
-                    ptr.RChild = new BTreeNode(member);
-                else
-                    add(member, ptr.RChild);
+				if (ptr.RChild == null)
+					ptr.RChild = new BTreeNode(member);
+				else
+				{
+					add(member, ptr.RChild);
+				}
             }
         }
 
@@ -57,6 +68,7 @@ namespace ToolLibrary
 
 			if (ptr != null) // if the search was successful
 			{
+				number--;
 				// case 3: item has two children
 				if ((ptr.LChild != null) && (ptr.RChild != null))
 				{
@@ -126,35 +138,42 @@ namespace ToolLibrary
 
 		public Member[] toArray()
         {
-            throw new NotImplementedException();
-        }
+			Member[] resultArray = new Member[number];
+			int index = 0;
+			if (root != null)
+			{
+				InOrderTraverse(root.LChild);
+				resultArray[index] = root.Member;
+				InOrderTraverse(root.RChild);
+			}
+
+			return resultArray;
+		}
 
 
 		public MemberCollection InOrderTraverse()
 		{
-			Console.WriteLine("InOrder: ");
 			return InOrderTraverse(root);
 		}
 
 		private MemberCollection InOrderTraverse(BTreeNode root)
 		{
-			iBSTree resultCollection = new MemberCollection();
+			MemberCollection resultCollection = new MemberCollection();
 			if (root != null)
 			{
 
 				InOrderTraverse(root.LChild);
 
 				resultCollection.add(root.Member);
-				Console.WriteLine("{0,-10} {1, -10} {2,-30}", root.Member.LastName,
-														   root.Member.FirstName,
-														   root.Member.ContactNumber);
 				InOrderTraverse(root.RChild);
 			}
 
-			return (MemberCollection)resultCollection;
+			return resultCollection;
 		}
 
-		public 
+
+
+		
 
 	}
 }

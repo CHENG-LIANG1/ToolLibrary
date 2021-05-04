@@ -4,12 +4,21 @@ using System.Text;
 
 namespace ToolLibrary
 {
+    // Author: Cheng Liang
+    // N10346911
     class Tool : iTool
     {
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public int AvailableQuantity { get; set; }
-        public int NoBorrowings { get; set; }
+        // private fields
+        private string name;
+        private int quantity;
+        private int availableQuantity;
+        private int noBorrowings;
+
+        // properties
+        public string Name { get { return name; } set { name = value; } }
+        public int Quantity { get { return quantity; } set { quantity = value; } }
+        public int AvailableQuantity { get { return availableQuantity; } set { availableQuantity = value; } }
+        public int NoBorrowings { get { return noBorrowings; } set { noBorrowings = value; } }
         public MemberCollection GetBorrowers
         {
             get
@@ -18,26 +27,28 @@ namespace ToolLibrary
             }
         }
 
+        // constructor
         public Tool(string name) {
-            this.Name = name;
+            this.name = name;
         }
 
         private MemberCollection toolBorrowers = new MemberCollection();
 
-
         public void addBorrower(Member member)
         {
-            toolBorrowers.add(member);
-            NoBorrowings++;
-            AvailableQuantity--;
+            if (availableQuantity > 0)
+            {
+                toolBorrowers.add(member);
+                noBorrowings++;
+                availableQuantity--;
+            }
 
         }
 
         public void deleteBorrower(Member member)
         {
             toolBorrowers.delete(member);
-            NoBorrowings--;
-            AvailableQuantity++;
+            availableQuantity++;
         }
     }
 }

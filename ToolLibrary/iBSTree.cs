@@ -22,5 +22,6 @@ namespace ToolLibrary
 		//	     otherwise, return false.
 		bool search(Member item);
         MemberCollection InOrderTraverse();
+        Member[] toArray();
     }
 }
