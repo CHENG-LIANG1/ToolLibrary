@@ -12,14 +12,16 @@ namespace ToolLibrary
         // private fields
         private int number;
         private Tool[] toolCollection;
+        private string name;
 
         // properties
         public int Number { get { return number; } }
-
+        public string Name { get { return name; } }
 
         // constructor
-        public ToolCollection() {
+        public ToolCollection(string name) {
             toolCollection = new Tool[number];
+            this.name = name;
         }
 
         // private method to check if two tools have the same name,
