@@ -55,7 +55,6 @@ namespace ToolLibrary
         public void add(Tool tool)
         {
             number++;
-            tool.AvailableQuantity++;
             toolCollection = resizeArray(toolCollection);
             for (int i = 0; i < toolCollection.Length; i++)
             {

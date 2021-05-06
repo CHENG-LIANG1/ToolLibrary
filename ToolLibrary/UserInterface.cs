@@ -6,7 +6,9 @@ namespace ToolLibrary
 {
     class UserInterface
     {
-        public static void DisplayMainMenu()
+        static string staffName = "";
+        static string staffPin = "";
+        public static string DisplayMainMenu()
         {
             Console.WriteLine("===============Main Menu===============");
             Console.WriteLine("1. Staff Login");
@@ -14,37 +16,49 @@ namespace ToolLibrary
             Console.WriteLine("0. Exit");
             Console.WriteLine("=======================================");
             Console.WriteLine("\n\nPlease make a selection (1-2) or 0 to exit: ");
+            return Console.ReadLine();
 
         }
 
-        public static void ProcessMainMenu(ToolLibrarySystem toolSystem)
+        public static void ProcessMainMenu(string mainMenuChoice, ToolLibrarySystem toolSystem)
         {
-            Console.Clear();
-            DisplayMainMenu();
-            string mainMenuChoice = Console.ReadLine();
+
             while (mainMenuChoice != "0")
             {
                 if (mainMenuChoice == "1")
                 {
-                    Console.Write("Please enter the staff name: ");
-                    string staffName = Console.ReadLine();
+
+                    if (staffName.ToLower() != "staff") {
+                        Console.Write("Please enter the staff name: ");
+                        staffName = Console.ReadLine();
+                    }
+
 
                     if (staffName.ToLower() == "staff")
                     {
-                        Console.Write("Please enter the staff pin: ");
-                        string staffPin = Console.ReadLine();
+
+                        if (staffPin != "today123")
+                        {
+                            Console.Write("Please enter the staff pin: ");
+                            staffPin = Console.ReadLine();
+                        }
+
                         if (staffPin == "today123")
                         {
-
                             DisplayStaffMenu();
                             string staffChoice = Console.ReadLine();
+
                             if (staffChoice != "0")
                             {
                                 ProcessStaffChoice(staffChoice, toolSystem);
                             }
                             else
                             {
-                                ProcessMainMenu(toolSystem);
+                                Console.Clear();
+                                staffName = "";
+                                staffPin = "";
+                                string choice = DisplayMainMenu();
+                                ProcessMainMenu(choice, toolSystem);
                             }
                         }
                     }
@@ -57,10 +71,14 @@ namespace ToolLibrary
                 }
                 else
                 {
-                    Console.WriteLine("Wrong input! Please make a selection (1-2) or 0 to exit: ");
+                    Console.WriteLine("Wrong selection! Please make a selection (1-2) or 0 to exit: ");
                     mainMenuChoice = Console.ReadLine();
                 }
             }
+
+            // set the staff name and pin to empty string so they are required when next login
+            staffName = "";
+            staffPin = "";
         }
 
         public static void DisplayStaffMenu()
@@ -75,7 +93,8 @@ namespace ToolLibrary
             Console.WriteLine("6. Find the contact number of a member");
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to main menu: ");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Main menu: ");
+
         }
 
         public static void DisplayMemberMenu()
@@ -88,7 +107,7 @@ namespace ToolLibrary
             Console.WriteLine("5. Display top (3) most frequently rented tools");
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to main menu: ");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Main menu: ");
         }
 
         public static string DisplayAndGetCategories()
@@ -105,7 +124,7 @@ namespace ToolLibrary
             Console.WriteLine("8. Electricity tools");
             Console.WriteLine("9. Automotive tools");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-9) or 0 to return to main menu: ");
+            Console.WriteLine("\n\nPlease make a selection (1-9) or 0 to return to Staff menu: ");
             string choice = Console.ReadLine();
             return choice;
 
@@ -114,13 +133,25 @@ namespace ToolLibrary
         public static string GetGardeningToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Line Trimmers");
             Console.WriteLine("2. Lawn Mowers");
             Console.WriteLine("3. Gardening Hand Tools");
             Console.WriteLine("4. Wheelbarrows");
             Console.WriteLine("5. Garden Power Tools");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
+
             string choice = Console.ReadLine();
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
+
             switch (choice)
             {
                 case "1":
@@ -144,14 +175,24 @@ namespace ToolLibrary
         public static string GetFlooringToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Scrapers");
             Console.WriteLine("2. Floor Lasers");
             Console.WriteLine("3. Floor Levelling Tools");
             Console.WriteLine("4. Floor Levelling Materials");
             Console.WriteLine("5. Floor Hand Tools");
             Console.WriteLine("6. Tiling Tools");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
             switch (choice)
             {
                 case "1":
@@ -174,14 +215,25 @@ namespace ToolLibrary
         }
         public static string GetFencingToolTypes()
         {
-            Console.Clear();
+            Console.Clear(); 
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Hand Tools");
             Console.WriteLine("2. Electric Fencing");
             Console.WriteLine("3. Steel Fencing Tools");
             Console.WriteLine("4. Power Tools");
             Console.WriteLine("5. Fencing Accessories");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
             switch (choice)
             {
                 case "1":
@@ -203,14 +255,25 @@ namespace ToolLibrary
         public static string GetMeasuringToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Distance Tools");
             Console.WriteLine("2. Laser Measurer");
             Console.WriteLine("3. Measuring Jugs");
             Console.WriteLine("4. Temperature & Humidity Tools");
             Console.WriteLine("5. Levelling Tools");
             Console.WriteLine("6. Markers");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
+
             switch (choice)
             {
                 case "1":
@@ -235,14 +298,25 @@ namespace ToolLibrary
         public static string GetCleaningToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Draining");
             Console.WriteLine("2. Car Cleaning");
             Console.WriteLine("3. Vacuum");
             Console.WriteLine("4. Pressure Cleaners");
             Console.WriteLine("5. Pool Cleaning");
             Console.WriteLine("6. Floor Cleaning");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
             switch (choice)
             {
                 case "1":
@@ -266,14 +340,26 @@ namespace ToolLibrary
         public static string GetPaintingToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Sanding Tools");
             Console.WriteLine("2. Brushes");
             Console.WriteLine("3. Rollers");
             Console.WriteLine("4. Paint Removal Tools");
             Console.WriteLine("5. Paint Scrapers");
             Console.WriteLine("6. Sprayers");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
+
+
             switch (choice)
             {
                 case "1":
@@ -297,13 +383,25 @@ namespace ToolLibrary
         public static string GetElectronicToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Voltage Tester");
             Console.WriteLine("2. Oscilloscopes");
             Console.WriteLine("3. Thermal Imaging");
             Console.WriteLine("4. Data Test Tool");
             Console.WriteLine("5. Insulation Testers");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
+
             switch (choice)
             {
                 case "1":
@@ -326,13 +424,24 @@ namespace ToolLibrary
         public static string GetElectricityToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Test Equipment");
             Console.WriteLine("2. Safety Equipment");
             Console.WriteLine("3. Basic Hand Tools");
             Console.WriteLine("4. Circuit Protection");
             Console.WriteLine("5. Cable Tools");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
             switch (choice)
             {
                 case "1":
@@ -355,14 +464,26 @@ namespace ToolLibrary
         public static string GetAutomotiveToolTypes()
         {
             Console.Clear();
+            Console.WriteLine("=============Tool Types============");
             Console.WriteLine("1. Jacks");
             Console.WriteLine("2. Air Compressors");
             Console.WriteLine("3. Battery Chargers");
             Console.WriteLine("4. Socket Tools");
             Console.WriteLine("5. Braking");
             Console.WriteLine("6. Drivetrain");
+            Console.WriteLine("===================================");
             Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
             string choice = Console.ReadLine();
+
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6" )
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                choice = Console.ReadLine();
+            }
+
+
             switch (choice)
             {
                 case "1":
@@ -386,10 +507,18 @@ namespace ToolLibrary
 
         }
 
-        public static string DisplayAndGetTooType(string choice)
+        public static string DisplayAndGetTooType(string choice, ToolLibrarySystem system)
         {
-            Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+
+            while (choice != "0" && choice != "1" && choice != "2" &&
+                   choice != "3" && choice != "4" && choice != "5" && choice != "6" && choice != "7" && choice != "8" && choice != "9")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-9) or 0 to return to Staff menu: ");
+                choice = Console.ReadLine();
+            }
+
+
+
             if (choice == "1")
             {
                 string toolType = GetGardeningToolTypes();
@@ -399,9 +528,10 @@ namespace ToolLibrary
                     {
                         GetGardeningToolTypes();
                     }
-                    else {
+                    else
+                    {
                         string categoryChoice = DisplayAndGetCategories();
-                        toolType = DisplayAndGetTooType(categoryChoice);
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
 
@@ -420,7 +550,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
 
@@ -439,7 +570,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
                 return toolType;
@@ -460,7 +592,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
 
                 }
@@ -479,7 +612,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
                 return toolType;
@@ -499,7 +633,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
                 return toolType;
@@ -518,7 +653,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
                 return toolType;
@@ -537,7 +673,8 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
                 return toolType;
@@ -556,14 +693,18 @@ namespace ToolLibrary
                     }
                     else
                     {
-                        DisplayAndGetCategories();
+                        string categoryChoice = DisplayAndGetCategories();
+                        toolType = DisplayAndGetTooType(categoryChoice, system);
                     }
                 }
 
                 return toolType;
 
             }
-            Console.WriteLine("===================================");
+            else {
+                ProcessMainMenu("1", system);
+                
+            }
 
 
             return "Wrong choice";
@@ -578,6 +719,7 @@ namespace ToolLibrary
 
             Tool tool = new Tool(toolName);
             tool.Quantity += quantity;
+            tool.AvailableQuantity += quantity;
 
             return tool;
         }
@@ -586,22 +728,62 @@ namespace ToolLibrary
 
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
+
+            DisplayStaffMenu();
+            Console.WriteLine(staffChoice);
+
+            while (staffChoice != "0" && staffChoice != "1" && staffChoice != "2" &&
+                   staffChoice != "3" && staffChoice != "4" && staffChoice != "5" && staffChoice != "6") {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
+                staffChoice = Console.ReadLine();
+            }
+
             
+
+
+
             if (staffChoice == "1")
             {
-                
                 string categoryChoice = DisplayAndGetCategories();
-                string toolType = DisplayAndGetTooType(categoryChoice);
-                while (toolType == "Wrong choice")
-                {
-                    toolType = DisplayAndGetTooType(categoryChoice);
-                }
+                string toolType = DisplayAndGetTooType(categoryChoice, system);
 
+                Console.Clear();
+                system.displayTools(toolType);
                 Tool toolToAdd = CreateATool();
                 system.add(toolToAdd, toolType);
 
 
-               
+                Console.Clear();
+                system.displayTools(toolType);
+
+                Console.WriteLine("\n\n1. Add a new tool");
+                Console.WriteLine("2. Return to staff menu");
+                Console.WriteLine("\n\nPlease make a selection (1-2) or 0 to return to staff menu");
+                string choice = Console.ReadLine();
+
+
+                while (choice != "1" && choice != "2"){
+                    Console.WriteLine("Wrong Selection! Please make a selection (1-2) or 0 to return to Staff menu: ");
+                    choice = Console.ReadLine();
+
+                }
+
+
+                if (choice == "1")
+                {
+                    ProcessStaffChoice(staffChoice, system);
+                }
+                else if (choice == "2")
+                {
+                    ProcessMainMenu("1", system);
+                }
+
+
+            }
+            else if (staffChoice == "0"){
+                string mainMenuChoice = DisplayMainMenu();
+                ProcessMainMenu(mainMenuChoice, system);
+
 
             }
 

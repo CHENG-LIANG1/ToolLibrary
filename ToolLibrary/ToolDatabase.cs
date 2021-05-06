@@ -9,7 +9,7 @@ namespace ToolLibrary
 
 
 
-        public static ToolCollection[] GetToolDatabase() {
+        public static ToolLibrarySystem GetToolDatabase() {
 
             ToolCollection lineTrimmers = new ToolCollection("Line Trimmers");
             ToolCollection lawnMowers = new ToolCollection("Lawn Mowers");
@@ -63,9 +63,9 @@ namespace ToolLibrary
             ToolCollection driveTrain = new ToolCollection("Drivetrain");
 
             ToolLibrarySystem toolSystem = new ToolLibrarySystem();
-            ToolCollection[] toolDatabase = toolSystem.ToolCollections;
 
-            toolDatabase = new ToolCollection[] {
+
+            toolSystem.ToolCollections = new ToolCollection[] {
             lineTrimmers,
             lawnMowers,
             gardenHandTools,
@@ -119,7 +119,7 @@ namespace ToolLibrary
 
         };
 
-            return toolDatabase;
+            return toolSystem;
 
 
         }

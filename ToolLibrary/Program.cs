@@ -67,8 +67,10 @@ namespace ToolLibrary
 
             //Console.WriteLine(memberBST.toArray()[0].FirstName);
 
-            
-            UserInterface.ProcessMainMenu(toolSystem);
+
+            ToolLibrarySystem toolSystem = ToolDatabase.GetToolDatabase();
+            string mainMenuChoice = UserInterface.DisplayMainMenu();
+            UserInterface.ProcessMainMenu(mainMenuChoice, toolSystem);
 
   
 
