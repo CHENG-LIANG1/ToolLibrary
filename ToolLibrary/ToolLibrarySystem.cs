@@ -7,130 +7,16 @@ namespace ToolLibrary
     class ToolLibrarySystem : iToolLibrarySystem
     {
 
-        private Tool aTool;
+
         private ToolCollection aToolCollection;
-
-        private Member aMember;
-
         private MemberCollection members;
-
-
         private ToolCollection[] toolCollections;
-        private ToolCollection lineTrimmers;
-        private ToolCollection lawnMowers;
-        private ToolCollection gardenHandTools;
-        private ToolCollection wheelBarrows;
-        private ToolCollection gardenPowerTools;
-        private ToolCollection scrapers;
-        private ToolCollection floorLasers;
-        private ToolCollection floorLevellingTools;
-        private ToolCollection floorLevellingMaterion;
-        private ToolCollection floorHandTools;
-        private ToolCollection tilingTools;
-        private ToolCollection fencingHandTools;
-        private ToolCollection electricFencing;
-        private ToolCollection steelFencingTools;
-        private ToolCollection powerTools;
-        private ToolCollection fencingAccessories;
-        private ToolCollection distanceTools;
-        private ToolCollection laserMeature;
-        private ToolCollection measuringJugs;
-        private ToolCollection temperatureAndHumidiection;
-        private ToolCollection messuringLevellingToon;
-        private ToolCollection markers;
-        private ToolCollection draning;
-        private ToolCollection carCleaning;
-        private ToolCollection vacuum;
-        private ToolCollection pressureCleaners;
-        private ToolCollection poolCleaning;
-        private ToolCollection floorCleaning;
-        private ToolCollection sandingTools;
-        private ToolCollection brushes;
-        private ToolCollection rollers;
-        private ToolCollection paintRemovalTools;
-        private ToolCollection paintScrapers;
-        private ToolCollection sprayers;
-        private ToolCollection voltageTester;
-        private ToolCollection oscilloscopes;
-        private ToolCollection thermalImaging;
-        private ToolCollection dataTestTool;
-        private ToolCollection insulationTesters;
-        private ToolCollection testEquipment;
-        private ToolCollection safetyEquipment;
-        private ToolCollection basicHandTools;
-        private ToolCollection circuitProtection;
-        private ToolCollection cableTools;
-        private ToolCollection jacks;
-        private ToolCollection airCompressors;
-        private ToolCollection batteryChargers;
-        private ToolCollection socketTools;
-        private ToolCollection braking;
-        private ToolCollection driveTrain;
-
-
+     
 
         public ToolCollection ToolCollection { get { return aToolCollection; } set { aToolCollection = value; } }
-
-        public ToolCollection[] ToolCollections
-        {
-            get
-            {
-                return
-                new ToolCollection[] {
-                lineTrimmers,
-                lawnMowers,
-                gardenHandTools,
-                wheelBarrows,
-                gardenPowerTools,
-                scrapers,
-                floorLasers,
-                floorLevellingTools,
-                floorLevellingMaterion,
-                floorHandTools,
-                tilingTools,
-                fencingHandTools,
-                electricFencing,
-                steelFencingTools,
-                powerTools,
-                fencingAccessories,
-                distanceTools,
-                laserMeature,
-                measuringJugs,
-                temperatureAndHumidiection,
-                messuringLevellingToon,
-                markers,
-                draning,
-                carCleaning,
-                vacuum,
-                pressureCleaners,
-                poolCleaning,
-                floorCleaning,
-                sandingTools,
-                brushes,
-                rollers,
-                paintRemovalTools,
-                paintScrapers,
-                sprayers,
-                voltageTester,
-                oscilloscopes,
-                thermalImaging,
-                dataTestTool,
-                insulationTesters,
-                testEquipment,
-                safetyEquipment,
-                basicHandTools,
-                circuitProtection,
-                cableTools,
-                jacks,
-                airCompressors,
-                batteryChargers,
-                socketTools,
-                braking,
-                driveTrain
-                };
-            }
-        }
-
+        public ToolCollection[] ToolCollections { get { return toolCollections; } set { toolCollections = value; } }
+        
+       
         public ToolLibrarySystem()
         {
         }
