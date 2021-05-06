@@ -83,7 +83,8 @@ namespace ToolLibrary
         public void displayTools(string aToolType)
         {
             Tool tool = null;
-            Console.WriteLine("==========================Tool=========================");
+            string header = "==========================" + aToolType + "=========================";
+            Console.WriteLine(header);
             Console.WriteLine("{0, -15}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
             for (int i = 0; i < toolCollections.Length; i++) {
                 if (toolCollections[i].Name == aToolType) {
@@ -94,7 +95,11 @@ namespace ToolLibrary
                     break;
                 }
             }
-            Console.WriteLine("=======================================================");
+
+            for (int i = 0; i < header.Length; i++) {
+                Console.Write("=");
+            }
+            Console.WriteLine();
         }
 
 
