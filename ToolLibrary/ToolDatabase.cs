@@ -8,7 +8,8 @@ namespace ToolLibrary
     {
 
 
-
+        // Author:    Cheng Liang
+        // Studen ID: N10346911
         public static ToolLibrarySystem GetToolDatabase() {
 
             ToolCollection lineTrimmers = new ToolCollection("Line Trimmers");

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace ToolLibrary
 {
-    // Author: Cheng Liang
-    // N10346911
+    // Author:    Cheng Liang
+    // Studen ID: N10346911
     class ToolCollection : iToolCollection
     {
 

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ToolLibrary
 {
+
+    // Author:    Cheng Liang
+    // Studen ID: N10346911
     class UserInterface
     {
         static string staffName = "";
