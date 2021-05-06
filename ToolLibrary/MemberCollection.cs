@@ -29,38 +29,38 @@ namespace ToolLibrary
                 add(member, root);
         }
 
-        private void add(Member member, BTreeNode ptr)
+        private void add(Member aMember, BTreeNode ptr)
         {
-            if (member.CompareTo(ptr.Member) < 0)
+            if (aMember.CompareTo(ptr.Member) < 0)
             {
 				if (ptr.LChild == null)
-					ptr.LChild = new BTreeNode(member);
+					ptr.LChild = new BTreeNode(aMember);
 				else
 				{
-					add(member, ptr.LChild);
+					add(aMember, ptr.LChild);
 				}
             }
             else
             {
 				if (ptr.RChild == null)
-					ptr.RChild = new BTreeNode(member);
+					ptr.RChild = new BTreeNode(aMember);
 				else
 				{
-					add(member, ptr.RChild);
+					add(aMember, ptr.RChild);
 				}
             }
         }
 
 
-        public void delete(Member member)
+        public void delete(Member aMember)
         {
 			// search for item and its parent
 			BTreeNode ptr = root; // search reference
 			BTreeNode parent = null; // parent of ptr
-			while ((ptr != null) && (member.CompareTo(ptr.Member) != 0))
+			while ((ptr != null) && (aMember.CompareTo(ptr.Member) != 0))
 			{
 				parent = ptr;
-				if (member.CompareTo(ptr.Member) < 0) // move to the left child of ptr
+				if (aMember.CompareTo(ptr.Member) < 0) // move to the left child of ptr
 					ptr = ptr.LChild;
 				else
 					ptr = ptr.RChild;
@@ -115,9 +115,9 @@ namespace ToolLibrary
 			}
 		}
 
-        public bool search(Member member)
+        public bool search(Member aMember)
         {
-			return Search(member, root);
+			return Search(aMember, root);
 		}
 
 		private bool Search(Member item, BTreeNode r)
@@ -138,16 +138,7 @@ namespace ToolLibrary
 
 		public Member[] toArray()
         {
-			Member[] resultArray = new Member[number];
-			int index = 0;
-			if (root != null)
-			{
-				InOrderTraverse(root.LChild);
-				resultArray[index] = root.Member;
-				InOrderTraverse(root.RChild);
-			}
-
-			return resultArray;
+			return InOrderTraverseArray(root);
 		}
 
 
@@ -172,8 +163,25 @@ namespace ToolLibrary
 		}
 
 
+		private Member[] InOrderTraverseArray(BTreeNode root)
+		{
+			Member[] resultArray = new Member[number];
+			int index = 0;
+			if (root != null)
+			{
 
-		
+				InOrderTraverse(root.LChild);
+
+				resultArray[index] = root.Member;
+				index++;
+				InOrderTraverse(root.RChild);
+			}
+
+			return resultArray;
+		}
+
+
+
 
 	}
 }

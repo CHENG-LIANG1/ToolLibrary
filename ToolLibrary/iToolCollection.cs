@@ -11,9 +11,9 @@ namespace ToolLibrary
         {
             get;
         }
-        void add(Tool tool); //add a given tool to this tool collection
-        void delete(Tool tool); //delete a given tool from this tool collection
-        Boolean search(Tool tool); //search a given tool in this tool collection. Return true if this tool is in the tool collection; return false otherwise
+        void add(Tool aTool); //add a given tool to this tool collection
+        void delete(Tool aTool); //delete a given tool from this tool collection
+        Boolean search(Tool aTool); //search a given tool in this tool collection. Return true if this tool is in the tool collection; return false otherwise
         Tool[] toArray(); // output the tools in this tool collection to an array of iTool
     }
 }

@@ -43,21 +43,21 @@ namespace ToolLibrary
         }
 
 
-        public void addTool(Tool tool)
+        public void addTool(Tool aTool)
         {
             for (int i = 0; i < borrowedTools.Length; i++) {
                 if (borrowedTools[i] != null) {
-                    borrowedTools[i] = tool;
+                    borrowedTools[i] = aTool;
                     break;
                 }
             }
         }
 
-        public void deleteTool(Tool tool)
+        public void deleteTool(Tool aTool)
         {
             for (int i = 0; i < borrowedTools.Length; i++)
             {
-                if (borrowedTools[i] != null && borrowedTools[i].Name == tool.Name)
+                if (borrowedTools[i] != null && borrowedTools[i].Name == aTool.Name)
                 {
                     borrowedTools[i] = null;
                 }

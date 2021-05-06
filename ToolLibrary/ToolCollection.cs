@@ -15,7 +15,7 @@ namespace ToolLibrary
         private string name;
 
         // properties
-        public int Number { get { return number; } }
+        public int Number { get { return number; }  }
         public string Name { get { return name; } }
 
         // constructor
@@ -27,7 +27,7 @@ namespace ToolLibrary
         // private method to check if two tools have the same name,
         // return the index of the tool in the array if found the tool
         // return -1 if not found
-        private int hasSameName(Tool tool) {
+        private int findToolIndex(Tool tool) {
 
             for (int i = 0; i < toolCollection.Length; i++) {
                 if (toolCollection[i] != null && toolCollection[i].Name == tool.Name)
@@ -55,6 +55,7 @@ namespace ToolLibrary
         public void add(Tool tool)
         {
             number++;
+            tool.AvailableQuantity++;
             toolCollection = resizeArray(toolCollection);
             for (int i = 0; i < toolCollection.Length; i++)
             {
@@ -68,11 +69,11 @@ namespace ToolLibrary
 
         public void delete(Tool tool)
         {
-            number--;
             tool.Quantity = 0;
-            int index = hasSameName(tool);
+            int index = findToolIndex(tool);
             if (index >=0) {
                 toolCollection[index] = null;
+                number--;
                 toolCollection = resizeArray(toolCollection);
 
             }
@@ -80,7 +81,7 @@ namespace ToolLibrary
 
         public bool search(Tool tool) 
         {
-            if (hasSameName(tool) >= 0) {
+            if (findToolIndex(tool) >= 0) {
                 return true;
             }
 

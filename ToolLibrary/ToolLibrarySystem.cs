@@ -8,7 +8,7 @@ namespace ToolLibrary
     {
 
         private Tool aTool;
-        private ToolCollection toolCollection;
+        private ToolCollection aToolCollection;
 
         private Member aMember;
 
@@ -69,7 +69,7 @@ namespace ToolLibrary
 
 
 
-        public ToolCollection ToolCollection { get { return toolCollection; } set { toolCollection = value; } }
+        public ToolCollection ToolCollection { get { return aToolCollection; } set { aToolCollection = value; } }
 
         public ToolCollection[] ToolCollections
         {
@@ -136,15 +136,19 @@ namespace ToolLibrary
         }
 
 
-        public void add(Tool aTool)
+        public void add(Tool aTool, string aToolType)
         {
-            toolCollection.add(aTool);
-            aTool.Quantity++;
+            for (int i = 0; i < toolCollections.Length; i++) {
+                if (toolCollections[i].Name == aToolType) {
+                    toolCollections[i].add(aTool);
+                    aTool.Quantity++;
+                }
+            }
+
         }
 
         public void add(Tool aTool, int quantity)
         {
-            toolCollection.add(aTool);
             aTool.Quantity += quantity;
         }
 
@@ -168,15 +172,18 @@ namespace ToolLibrary
 
         public void delete(Tool aTool)
         {
-            toolCollection.delete(aTool);
+            aToolCollection.delete(aTool);
         }
 
         public void delete(Tool aTool, int quantity)
         {
-            aTool.AvailableQuantity -= quantity;
-            if (aTool.AvailableQuantity < 0)
+
+
+            if (aTool.AvailableQuantity > quantity)
             {
-                aTool.AvailableQuantity += quantity;
+                aTool.AvailableQuantity -= quantity;
+            }
+            else {
                 Console.WriteLine("Cannot delete " + quantity + " pieces of tool");
             }
         }
@@ -205,19 +212,19 @@ namespace ToolLibrary
         private Tool findMaxBorrowing(List<Tool> tools) {
 
             int numOfBoroowings = 0;
-            Tool result = null;
+            Tool topTool = null;
             for (int i = 0; i < tools.Count; i++)
             {
                 if (tools[i].NoBorrowings > numOfBoroowings) {
                     numOfBoroowings = tools[i].NoBorrowings;
-                    result = tools[i];
+                    topTool = tools[i];
                     tools.RemoveAt(i); // remove the top borrowing tool
                 }
             }
-            return result;
+            return topTool;
         }
 
-        public void displayTopTHree()
+        public void displayTopThree()
         {
             List<Tool> allTools = new List<Tool>();
             for (int i = 0; i < toolCollections.Length; i++) {

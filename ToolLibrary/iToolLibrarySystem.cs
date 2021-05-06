@@ -6,7 +6,7 @@ namespace ToolLibrary
 {
     interface iToolLibrarySystem
     {
-        void add(Tool aTool); // add a new tool to the system
+        void add(Tool aTool, string aToolType); // add a new tool to the system
 
         void add(Tool aTool, int quantity); //add new pieces of an existing tool to the system
 
@@ -29,8 +29,7 @@ namespace ToolLibrary
 
         string[] listTools(Member aMember); //get a list of tools that are currently held by a given member
 
-        void displayTopTHree(); //Display top three most frequently borrowed tools by the members in the descending order by the number of times each tool has been borrowed.
-
+        void displayTopThree(); //Display top three most frequently borrowed tools by the members in the descending order by the number of times each tool has been borrowed.
 
     }
 }

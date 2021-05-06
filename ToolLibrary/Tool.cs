@@ -23,7 +23,7 @@ namespace ToolLibrary
         {
             get
             {
-                return toolBorrowers.InOrderTraverse();
+                return toolBorrowers;
             }
         }
 
