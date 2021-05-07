@@ -65,6 +65,7 @@ namespace ToolLibrary
 
             ToolLibrarySystem toolSystem = new ToolLibrarySystem();
 
+            toolSystem.Members = new MemberCollection();
 
             toolSystem.ToolCollections = new ToolCollection[] {
             lineTrimmers,

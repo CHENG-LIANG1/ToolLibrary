@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ToolLibrary
 {
@@ -12,9 +13,32 @@ namespace ToolLibrary
 
             ToolLibrarySystem toolSystem = ToolDatabase.GetToolDatabase();
             string mainMenuChoice = UserInterface.DisplayMainMenu();
+            Member member01 = new Member("Cheng", "Liang", "17887962464", "1234");
+            Member member02 = new Member("Huanyi", "Qian", "17701449052", "1234");
+            Member member03 = new Member("Ray", "Wenderlich", "1243536645", "1234");
+            Member member04 = new Member("Bruce", "Wayne", "15423424123", "0789");
+
+            toolSystem.add(member01);
+            toolSystem.add(member02);
+            toolSystem.add(member03);
+            toolSystem.add(member04);
+
             UserInterface.ProcessMainMenu(mainMenuChoice, toolSystem);
 
-  
+            //Console.WriteLine();
+
+
+
+ 
+
+            //for (int i = 0; i < toolSystem.Members.toArray().Length; i++)
+            //{
+            //    if (toolSystem.Members.toArray()[i] != null)
+            //    {
+            //        Console.WriteLine(toolSystem.Members.toArray()[i].FirstName);
+            //    }
+
+            //}
 
 
 

@@ -11,7 +11,7 @@ namespace ToolLibrary
 		// private fields
 		private BTreeNode root;
 		private int number;
-
+		private int index = 0;
 		// properties
 		public int Number { get { return number; } set { number = value; } }
 
@@ -138,47 +138,47 @@ namespace ToolLibrary
 
 		public Member[] toArray()
         {
-			return InOrderTraverseArray(root);
-		}
+			resultList = InOrderTraverse();
 
-
-		public MemberCollection InOrderTraverse()
-		{
-			return InOrderTraverse(root);
-		}
-
-		private MemberCollection InOrderTraverse(BTreeNode root)
-		{
-			MemberCollection resultCollection = new MemberCollection();
-			if (root != null)
-			{
-
-				InOrderTraverse(root.LChild);
-
-				resultCollection.add(root.Member);
-				InOrderTraverse(root.RChild);
-			}
-
-			return resultCollection;
-		}
-
-
-		private Member[] InOrderTraverseArray(BTreeNode root)
-		{
-			Member[] resultArray = new Member[number];
-			int index = 0;
-			if (root != null)
-			{
-
-				InOrderTraverse(root.LChild);
-
-				resultArray[index] = root.Member;
-				index++;
-				InOrderTraverse(root.RChild);
+			for (int i = 0; i < resultList.Count; i++) {
+				resultArray[i] = resultList[i];
 			}
 
 			return resultArray;
 		}
+
+
+		public List<Member> InOrderTraverse()
+		{
+			return InOrderTraverse(root);
+		}
+		List<Member> resultList = new List<Member>();
+		Member[] resultArray = new Member[100];
+
+		private List<Member> InOrderTraverse(BTreeNode root)
+		{
+
+			if (root != null)
+			{
+				InOrderTraverse(root.LChild);
+
+				int count = 0;
+				for (int i = 0; i < resultList.Count; i++) {
+					if (resultList[i].ContactNumber == root.Member.ContactNumber) {
+						count++;
+					}
+				}
+
+				if (count == 0) {
+					resultList.Add(root.Member);
+				}
+				InOrderTraverse(root.RChild);
+			}
+
+			return resultList;
+		}
+
+
 
 
 

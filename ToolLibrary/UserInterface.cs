@@ -11,6 +11,7 @@ namespace ToolLibrary
     {
         static string staffName = "";
         static string staffPin = "";
+        private static MemberCollection members = null;
         public static string DisplayMainMenu()
         {
             Console.WriteLine("===============Main Menu===============");
@@ -627,14 +628,69 @@ namespace ToolLibrary
                 Console.WriteLine("Wrong input! Please enter an integer value: ");
                 quantityString = Console.ReadLine();
             }
- 
- 
+
+
             Tool tool = new Tool(toolName);
             tool.Quantity += quantity;
             tool.AvailableQuantity += quantity;
 
             return tool;
         }
+
+        public static Member CreateMember() {
+            Console.Write("\nPlease enter first name:         ");
+            string firstName = Console.ReadLine();
+            Console.Write("Please enter last name:          ");
+            string lastName = Console.ReadLine();
+
+            Console.Write("Please enter contact number:     ");
+
+
+            string number = Console.ReadLine();
+            while (!long.TryParse(number, out _))
+            {
+                Console.Write("Wrong input! Please enter numeric values: ");
+                number = Console.ReadLine();
+            }
+
+            Console.Write("Please enter password(4 digits): ");
+            string pin = Console.ReadLine();
+
+            while (!int.TryParse(pin, out _) || pin.Length != 4)
+            {
+                Console.Write("Wrong input! Please enter 4 digits: ");
+                pin = Console.ReadLine();
+            }
+
+            Member member = new Member(firstName, lastName, number, pin);
+
+            return member;
+        }
+        static int validMemberNum = 0;
+
+        public static void DisplayMembers(ToolLibrarySystem system) {
+            Console.WriteLine("==========================Members=========================");
+
+            Console.WriteLine("   {0, -15}{1, -15}{2, 15}", "First Name", "Last Name", "Contact Number");
+
+            if (system.Members != null)
+            {
+                Member[] memberArray = system.Members.toArray();
+
+                for (int i = 0; i < memberArray.Length; i++)
+                {
+                    if (memberArray[i] != null && memberArray[i].ContactNumber != "")
+                    {
+                        validMemberNum++;
+                        Console.WriteLine(i + 1 + ". {0, -15}{1, -15} {2, -15}", memberArray[i].FirstName, memberArray[i].LastName, memberArray[i].ContactNumber);
+                    }
+
+                }
+            }
+
+            Console.WriteLine("==========================================================");
+        }
+
 
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
@@ -683,12 +739,13 @@ namespace ToolLibrary
                     ProcessMainMenu("1", system);
                 }
             }
-            else if (staffChoice == "2") {
+            else if (staffChoice == "2")
+            {
                 string categoryChoice = DisplayAndGetCategories();
                 string toolType = DisplayAndGetTooType(categoryChoice, system);
                 Console.Clear();
                 Tool[] displayedTools = system.displayTools(toolType);
-                Console.WriteLine("Please make a selection from the tools above: ");
+                Console.WriteLine("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
@@ -700,7 +757,7 @@ namespace ToolLibrary
                 }
 
                 Tool selectedTool = displayedTools[indexChoice - 1];
-                Console.Write("Please enter a quantity: ");
+                Console.Write("Please enter the quantity of this tool you want to add: ");
                 string quantityString = Console.ReadLine();
                 int quantity;
 
@@ -716,7 +773,7 @@ namespace ToolLibrary
                 Console.Clear();
                 system.displayTools(toolType);
 
-                Console.WriteLine("0. Return to staff menu");
+                Console.WriteLine("\n0. Return to staff menu");
                 Console.WriteLine("\n\nPlease make a selection 0 to return to Staff menu");
                 string choice = Console.ReadLine();
 
@@ -727,8 +784,110 @@ namespace ToolLibrary
                 }
 
             }
+            else if (staffChoice == "3")
+            {
+                string categoryChoice = DisplayAndGetCategories();
+                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                Console.Clear();
+                Tool[] displayedTools = system.displayTools(toolType);
+                Console.WriteLine("\n\nPlease make a selection from the tools above: ");
+                string choiceString = Console.ReadLine();
+
+                int indexChoice;
+
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length)
+                {
+                    Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
+                    choiceString = Console.ReadLine();
+                }
+
+                Tool selectedTool = displayedTools[indexChoice - 1];
+                Console.Write("Please enter the quantity of this tool you want to remove: ");
+                string quantityString = Console.ReadLine();
+                int quantity;
+
+                while (!int.TryParse(quantityString, out quantity) || quantity > selectedTool.AvailableQuantity)
+                {
+                    Console.Write("Wrong input! Please enter an integer value less than available quantity: ");
+                    quantityString = Console.ReadLine();
+                }
 
 
-        }
-    }
+                selectedTool.AvailableQuantity -= quantity;
+                selectedTool.Quantity -= quantity;
+
+                Console.Clear();
+                system.displayTools(toolType);
+
+                Console.WriteLine("\n\n0. Return to staff menu");
+                Console.WriteLine("\n\nPlease enter 0 to return to Staff menu");
+                string choice = Console.ReadLine();
+
+                while (choice != "0")
+                {
+                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                    choice = Console.ReadLine();
+                }
+
+            }
+            else if (staffChoice == "4")
+            {
+                Console.Clear();
+                DisplayMembers(system);
+                Member member = CreateMember();
+                system.add(member);
+
+                Console.Clear();
+                DisplayMembers(system);
+
+                Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
+
+                string choice = Console.ReadLine();
+                while (choice != "0")
+                {
+                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                    choice = Console.ReadLine();
+                }
+
+            }
+            else if (staffChoice == "5") {
+                Console.Clear();
+                DisplayMembers(system);
+                Console.WriteLine("\n\nPlease select the member you want to remove or enter 0 to return to Staff menu: ");
+
+                int indexChoice;
+                string choiceString = Console.ReadLine();
+
+                while (!int.TryParse(choiceString, out indexChoice)|| indexChoice < 0 || indexChoice > validMemberNum)
+                {
+                    Console.WriteLine("Wrong input! Please make a selection from the member IDs above: ");
+                    choiceString = Console.ReadLine();
+                }
+
+                if (indexChoice == 0) {
+                    ProcessMainMenu("1", system);
+                }
+
+                Member memberToDelete = system.Members.toArray()[indexChoice - 1];
+                system.delete(memberToDelete);
+                memberToDelete.FirstName = "";
+                memberToDelete.LastName = "";
+                memberToDelete.PIN = "";
+                memberToDelete.ContactNumber = "";
+
+                Console.Clear();
+                DisplayMembers(system);
+
+                Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
+
+                string choice = Console.ReadLine();
+                while (choice != "0")
+                {
+                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                    choice = Console.ReadLine();
+                }
+
+
+            }
+     }   }
 }

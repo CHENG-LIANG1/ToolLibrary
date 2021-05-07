@@ -11,12 +11,13 @@ namespace ToolLibrary
 
 
         private ToolCollection aToolCollection;
-        private MemberCollection members;
+        private MemberCollection members = new MemberCollection();
         private ToolCollection[] toolCollections;
      
 
         public ToolCollection ToolCollection { get { return aToolCollection; } set { aToolCollection = value; } }
         public ToolCollection[] ToolCollections { get { return toolCollections; } set { toolCollections = value; } }
+        public MemberCollection Members { get { return members; }  set { members = value; } }
         
        
         public ToolLibrarySystem()
