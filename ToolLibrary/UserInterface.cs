@@ -175,7 +175,6 @@ namespace ToolLibrary
             }
         }
 
-
         public static string GetFlooringToolTypes()
         {
             Console.Clear();
@@ -614,7 +613,6 @@ namespace ToolLibrary
             return "Wrong choice";
         }
 
-
         public static Tool CreateATool()
         {
             Console.Write("Please enter a tool name: ");
@@ -638,24 +636,18 @@ namespace ToolLibrary
             return tool;
         }
 
-
-
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
 
             DisplayStaffMenu();
             Console.WriteLine(staffChoice);
 
-            while (staffChoice != "0" && staffChoice != "1" && staffChoice != "2" &&
+            while (staffChoice != "1" && staffChoice != "2" &&
                    staffChoice != "3" && staffChoice != "4" && staffChoice != "5" && staffChoice != "6")
             {
                 Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
                 staffChoice = Console.ReadLine();
             }
-
-
-
-
 
             if (staffChoice == "1")
             {
@@ -667,21 +659,18 @@ namespace ToolLibrary
                 Tool toolToAdd = CreateATool();
                 system.add(toolToAdd, toolType);
 
-
                 Console.Clear();
                 system.displayTools(toolType);
 
                 Console.WriteLine("\n\n1. Add a new tool");
-                Console.WriteLine("2. Return to staff menu");
-                Console.WriteLine("\n\nPlease make a selection (1-2) or 0 to return to staff menu");
+                Console.WriteLine("0. Return to staff menu");
+                Console.WriteLine("\n\nPlease make a selection (1) or 0 to return to staff menu");
                 string choice = Console.ReadLine();
 
-
-                while (choice != "1" && choice != "2")
+                while (choice != "1" && choice != "0")
                 {
                     Console.WriteLine("Wrong Selection! Please make a selection (1-2) or 0 to return to Staff menu: ");
                     choice = Console.ReadLine();
-
                 }
 
 
@@ -689,20 +678,56 @@ namespace ToolLibrary
                 {
                     ProcessStaffChoice(staffChoice, system);
                 }
-                else if (choice == "2")
+                else if (choice == "0")
                 {
                     ProcessMainMenu("1", system);
                 }
+            }
+            else if (staffChoice == "2") {
+                string categoryChoice = DisplayAndGetCategories();
+                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                Console.Clear();
+                Tool[] displayedTools = system.displayTools(toolType);
+                Console.WriteLine("Please make a selection from the tools above: ");
+                string choiceString = Console.ReadLine();
 
+                int indexChoice;
+
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length)
+                {
+                    Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
+                    choiceString = Console.ReadLine();
+                }
+
+                Tool selectedTool = displayedTools[indexChoice - 1];
+                Console.Write("Please enter a quantity: ");
+                string quantityString = Console.ReadLine();
+                int quantity;
+
+                while (!int.TryParse(quantityString, out quantity))
+                {
+                    Console.Write("Wrong input! Please enter an integer value: ");
+                    quantityString = Console.ReadLine();
+                }
+
+                selectedTool.AvailableQuantity += quantity;
+                selectedTool.Quantity += quantity;
+
+                Console.Clear();
+                system.displayTools(toolType);
+
+                Console.WriteLine("0. Return to staff menu");
+                Console.WriteLine("\n\nPlease make a selection 0 to return to Staff menu");
+                string choice = Console.ReadLine();
+
+                while (choice != "0")
+                {
+                    Console.WriteLine("Wrong Selection! Please make a selection 0 to return to Staff menu: ");
+                    choice = Console.ReadLine();
+                }
 
             }
-            else if (staffChoice == "0")
-            {
-                string mainMenuChoice = DisplayMainMenu();
-                ProcessMainMenu(mainMenuChoice, system);
 
-
-            }
 
         }
     }

@@ -82,17 +82,20 @@ namespace ToolLibrary
         }
 
 
-        public void displayTools(string aToolType)
+        public Tool[] displayTools(string aToolType)
         {
             Tool tool = null;
+            Tool[] displayedTools = null;
             string header = "==========================" + aToolType + "=========================";
             Console.WriteLine(header);
-            Console.WriteLine("{0, -15}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
+            Console.WriteLine("   {0, -15}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
             for (int i = 0; i < toolCollections.Length; i++) {
                 if (toolCollections[i].Name == aToolType) {
+                    displayedTools = new Tool[toolCollections[i].Number]; 
                     for (int j = 0; j < toolCollections[i].Number; j++) {
                         tool = toolCollections[i].toArray()[j];
-                        Console.WriteLine("{0, -15}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
+                        displayedTools[j] = tool;
+                        Console.WriteLine(j + 1 +  ". {0, -15}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
                     }
                     break;
                 }
@@ -102,8 +105,11 @@ namespace ToolLibrary
                 Console.Write("=");
             }
             Console.WriteLine();
+
+            return displayedTools;
         }
 
+     
 
         private Tool findMaxBorrowing(List<Tool> tools) {
 
