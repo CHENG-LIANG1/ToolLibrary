@@ -21,7 +21,6 @@ namespace ToolLibrary
             Console.WriteLine("=======================================");
             Console.WriteLine("\n\nPlease make a selection (1-2) or 0 to exit: ");
             return Console.ReadLine();
-
         }
 
         public static void ProcessMainMenu(string mainMenuChoice, ToolLibrarySystem toolSystem)
@@ -138,14 +137,15 @@ namespace ToolLibrary
         public static string GetGardeningToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Gardening Tools============");
             Console.WriteLine("1. Line Trimmers");
             Console.WriteLine("2. Lawn Mowers");
             Console.WriteLine("3. Gardening Hand Tools");
             Console.WriteLine("4. Wheelbarrows");
             Console.WriteLine("5. Garden Power Tools");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category");
+            Console.WriteLine("========================================");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
 
             string choice = Console.ReadLine();
 
@@ -179,15 +179,16 @@ namespace ToolLibrary
         public static string GetFlooringToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Flooring Tools============");
             Console.WriteLine("1. Scrapers");
             Console.WriteLine("2. Floor Lasers");
             Console.WriteLine("3. Floor Levelling Tools");
             Console.WriteLine("4. Floor Levelling Materials");
             Console.WriteLine("5. Floor Hand Tools");
             Console.WriteLine("6. Tiling Tools");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
@@ -220,14 +221,15 @@ namespace ToolLibrary
         public static string GetFencingToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Fencing Tools============");
             Console.WriteLine("1. Hand Tools");
             Console.WriteLine("2. Electric Fencing");
             Console.WriteLine("3. Steel Fencing Tools");
             Console.WriteLine("4. Power Tools");
             Console.WriteLine("5. Fencing Accessories");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("======================================");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
 
@@ -259,15 +261,16 @@ namespace ToolLibrary
         public static string GetMeasuringToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Measuring Tools============");
             Console.WriteLine("1. Distance Tools");
             Console.WriteLine("2. Laser Measurer");
             Console.WriteLine("3. Measuring Jugs");
             Console.WriteLine("4. Temperature & Humidity Tools");
             Console.WriteLine("5. Levelling Tools");
             Console.WriteLine("6. Markers");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("========================================");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
@@ -302,15 +305,16 @@ namespace ToolLibrary
         public static string GetCleaningToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Cleaning Tools============");
             Console.WriteLine("1. Draining");
             Console.WriteLine("2. Car Cleaning");
             Console.WriteLine("3. Vacuum");
             Console.WriteLine("4. Pressure Cleaners");
             Console.WriteLine("5. Pool Cleaning");
             Console.WriteLine("6. Floor Cleaning");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
 
@@ -345,15 +349,16 @@ namespace ToolLibrary
         public static string GetPaintingToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Painting Tools============");
             Console.WriteLine("1. Sanding Tools");
             Console.WriteLine("2. Brushes");
             Console.WriteLine("3. Rollers");
             Console.WriteLine("4. Paint Removal Tools");
             Console.WriteLine("5. Paint Scrapers");
             Console.WriteLine("6. Sprayers");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
@@ -386,14 +391,15 @@ namespace ToolLibrary
         public static string GetElectronicToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Electronic Tools============");
             Console.WriteLine("1. Voltage Tester");
             Console.WriteLine("2. Oscilloscopes");
             Console.WriteLine("3. Thermal Imaging");
             Console.WriteLine("4. Data Test Tool");
             Console.WriteLine("5. Insulation Testers");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("=========================================");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
@@ -425,14 +431,15 @@ namespace ToolLibrary
         public static string GetElectricityToolTypes()
         {
             Console.Clear();
-            Console.WriteLine("=============Tool Types============");
+            Console.WriteLine("=============Electricity Tools============");
             Console.WriteLine("1. Test Equipment");
             Console.WriteLine("2. Safety Equipment");
             Console.WriteLine("3. Basic Hand Tools");
             Console.WriteLine("4. Circuit Protection");
             Console.WriteLine("5. Cable Tools");
-            Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to category menu");
+            Console.WriteLine("0. Return to Category menu");
+            Console.WriteLine("==========================================");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
 
@@ -472,8 +479,9 @@ namespace ToolLibrary
             Console.WriteLine("4. Socket Tools");
             Console.WriteLine("5. Braking");
             Console.WriteLine("6. Drivetrain");
+            Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
             string choice = Console.ReadLine();
 
 
@@ -691,10 +699,19 @@ namespace ToolLibrary
             Console.WriteLine("==========================================================");
         }
 
+        public static void ReturnToStaffMenu() {
+            Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
+            string choice = Console.ReadLine();
+            while (choice != "0")
+            {
+                Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                choice = Console.ReadLine();
+            }
+
+        }
 
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
-
             DisplayStaffMenu();
             Console.WriteLine(staffChoice);
 
@@ -774,14 +791,8 @@ namespace ToolLibrary
                 system.displayTools(toolType);
 
                 Console.WriteLine("\n0. Return to staff menu");
-                Console.WriteLine("\n\nPlease make a selection 0 to return to Staff menu");
-                string choice = Console.ReadLine();
 
-                while (choice != "0")
-                {
-                    Console.WriteLine("Wrong Selection! Please make a selection 0 to return to Staff menu: ");
-                    choice = Console.ReadLine();
-                }
+                ReturnToStaffMenu();
 
             }
             else if (staffChoice == "3")
@@ -820,15 +831,8 @@ namespace ToolLibrary
                 system.displayTools(toolType);
 
                 Console.WriteLine("\n\n0. Return to staff menu");
-                Console.WriteLine("\n\nPlease enter 0 to return to Staff menu");
-                string choice = Console.ReadLine();
 
-                while (choice != "0")
-                {
-                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
-                    choice = Console.ReadLine();
-                }
-
+                ReturnToStaffMenu();
             }
             else if (staffChoice == "4")
             {
@@ -840,17 +844,11 @@ namespace ToolLibrary
                 Console.Clear();
                 DisplayMembers(system);
 
-                Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
 
-                string choice = Console.ReadLine();
-                while (choice != "0")
-                {
-                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
-                    choice = Console.ReadLine();
-                }
-
+                ReturnToStaffMenu();
             }
-            else if (staffChoice == "5") {
+            else if (staffChoice == "5")
+            {
                 Console.Clear();
                 DisplayMembers(system);
                 Console.WriteLine("\n\nPlease select the member you want to remove or enter 0 to return to Staff menu: ");
@@ -858,13 +856,14 @@ namespace ToolLibrary
                 int indexChoice;
                 string choiceString = Console.ReadLine();
 
-                while (!int.TryParse(choiceString, out indexChoice)|| indexChoice < 0 || indexChoice > validMemberNum)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice < 0 || indexChoice > validMemberNum)
                 {
                     Console.WriteLine("Wrong input! Please make a selection from the member IDs above: ");
                     choiceString = Console.ReadLine();
                 }
 
-                if (indexChoice == 0) {
+                if (indexChoice == 0)
+                {
                     ProcessMainMenu("1", system);
                 }
 
@@ -877,17 +876,31 @@ namespace ToolLibrary
 
                 Console.Clear();
                 DisplayMembers(system);
-
-                Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
-
-                string choice = Console.ReadLine();
-                while (choice != "0")
-                {
-                    Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
-                    choice = Console.ReadLine();
-                }
-
+                Console.WriteLine("\n\n0. Return to staff menu");
+                ReturnToStaffMenu();
 
             }
-     }   }
+            else if (staffChoice == "6") {
+                Console.Clear();
+                Console.Write("Please enter a member first name: ");
+                string firstName = Console.ReadLine();
+                Console.Write("Please enter a member last name:  ");
+                string lastName = Console.ReadLine();
+
+                Member[] memberArray = system.Members.toArray();
+                for (int i = 0; i < memberArray.Length; i++) {
+                    
+                    if (memberArray[i] != null &&
+                        memberArray[i].LastName.ToLower() == lastName.ToLower() && memberArray[i].FirstName.ToLower() == firstName.ToLower()) {
+                        Console.Clear();
+                        Console.WriteLine("Contact Number: " + memberArray[i].ContactNumber);
+                    }
+                
+                }
+
+                Console.WriteLine("\n\n0. Return to staff menu");
+                ReturnToStaffMenu();
+
+            }
+        }   }
 }
