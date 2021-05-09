@@ -21,7 +21,6 @@ namespace ToolLibrary
 		// post: return true if item is in the binary search true;
 		//	     otherwise, return false.
 		bool search(Member item);
-        List<Member> InOrderTraverse();
-        Member[] toArray();
+
     }
 }

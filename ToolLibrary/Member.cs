@@ -22,11 +22,17 @@ namespace ToolLibrary
         public string[] Tools { get {
                 string[] toolNames = new string[3];
                 for (int i = 0; i < borrowedTools.toArray().Length; i++) {
-                    toolNames[i] = borrowedTools.toArray()[i].Name;
+                    if (borrowedTools.toArray()[i] != null)
+                    {
+                        toolNames[i] = borrowedTools.toArray()[i].Name;
+                    }
                 }
-
                 return toolNames;
-            } }
+            } 
+        }
+
+        public ToolCollection BorrowedTools { get { return borrowedTools; } set { borrowedTools = value; } }
+
 
 
         private ToolCollection borrowedTools = new ToolCollection("Borrowed Tools");
@@ -43,7 +49,7 @@ namespace ToolLibrary
         public void addTool(Tool aTool)
         {
             borrowedTools.add(aTool);
-            borrowedTools.Number++;
+
      
         }
 

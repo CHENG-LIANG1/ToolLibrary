@@ -22,10 +22,11 @@ namespace ToolLibrary
             Console.WriteLine("2. Member Login");
             Console.WriteLine("0. Exit");
             Console.WriteLine("=======================================");
-            Console.WriteLine("\n\nPlease make a selection (1-2) or 0 to exit: ");
+            Console.Write("\n\nPlease make a selection (1-2) or 0 to exit: ");
             return Console.ReadLine();
         }
 
+        static Member loggedInMember;
         public static bool LoginAMember(ToolLibrarySystem toolSystem) {
             Console.Clear();
 
@@ -50,7 +51,7 @@ namespace ToolLibrary
                     memberFirstName = memberArray[i].FirstName;
                     memberLastName = memberArray[i].LastName;
                     pin = memberArray[i].PIN;
-
+                    loggedInMember = memberArray[i];
                     return true;
                 }   
             }
@@ -70,7 +71,7 @@ namespace ToolLibrary
                         Console.Clear();
                         Console.Write("Please enter the staff name: ");
                         staffName = Console.ReadLine();
-                        if (staffName != "staff") {
+                        if (staffName.ToLower() != "staff") {
                             Console.Write("\nWrong staff name! Enter 0 to return to main menu or ");
                             Console.Write("press any other key to try again: ");
                             string choice = Console.ReadLine();
@@ -92,6 +93,7 @@ namespace ToolLibrary
                             Console.Clear();
                             Console.Write("Please enter the staff pin: ");
                             staffPin = Console.ReadLine();
+                            staffName = "staff";
                             if (staffPin != "today123") {
                                 Console.Write("\nWrong staff pin! Enter 0 to return to main menu or ");
                                 Console.Write("press any other key to try again: ");
@@ -148,10 +150,8 @@ namespace ToolLibrary
                     string memberChoice = Console.ReadLine();
 
                     if (memberChoice != "0")
-                    {
-        
+                    {        
                         ProcessMemberChoice(memberChoice, toolSystem);
-
                     }
                     else {
                         Console.Clear();
@@ -164,7 +164,7 @@ namespace ToolLibrary
                 }
                 else
                 {
-                    Console.WriteLine("Wrong selection! Please make a selection (1-2) or 0 to exit: ");
+                    Console.Write("Wrong selection! Please make a selection (1-2) or 0 to exit: ");
                     mainMenuChoice = Console.ReadLine();
                 }
             }
@@ -201,7 +201,7 @@ namespace ToolLibrary
             Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Main menu: ");
         }
 
-        public static string DisplayAndGetCategories()
+        public static string DisplayAndGetCategories(string role)
         {
             Console.Clear();
             Console.WriteLine("=============Tool Categories============");
@@ -214,8 +214,9 @@ namespace ToolLibrary
             Console.WriteLine("7. Electronic tools");
             Console.WriteLine("8. Electricity tools");
             Console.WriteLine("9. Automotive tools");
+            Console.WriteLine("0. Return to Staff menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-9) or 0 to return to Staff menu: ");
+            Console.WriteLine("\n\nPlease make a selection (1-9) or 0 to return to " + role + " menu: ");
             string choice = Console.ReadLine();
             return choice;
 
@@ -601,7 +602,7 @@ namespace ToolLibrary
             }
         }
 
-        public static string DisplayAndGetTooType(string choice, ToolLibrarySystem system)
+        public static string DisplayAndGetTooType(string choice, ToolLibrarySystem system, string role)
         {
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6" && choice != "7" && choice != "8" && choice != "9")
@@ -615,8 +616,8 @@ namespace ToolLibrary
                 string toolType = GetGardeningToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -625,8 +626,8 @@ namespace ToolLibrary
                 string toolType = GetFlooringToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -635,8 +636,8 @@ namespace ToolLibrary
                 string toolType = GetFencingToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -645,8 +646,8 @@ namespace ToolLibrary
                 string toolType = GetMeasuringToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -655,8 +656,8 @@ namespace ToolLibrary
                 string toolType = GetCleaningToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -665,8 +666,8 @@ namespace ToolLibrary
                 string toolType = GetPaintingToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -675,8 +676,8 @@ namespace ToolLibrary
                 string toolType = GetElectronicToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -686,8 +687,8 @@ namespace ToolLibrary
                 string toolType = GetElectricityToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
@@ -696,14 +697,14 @@ namespace ToolLibrary
                 string toolType = GetAutomotiveToolTypes();
                 if (toolType == "back")
                 {
-                    string categoryChoice = DisplayAndGetCategories();
-                    toolType = DisplayAndGetTooType(categoryChoice, system);
+                    string categoryChoice = DisplayAndGetCategories("Staff");
+                    toolType = DisplayAndGetTooType(categoryChoice, system, role);
                 }
                 return toolType;
             }
             else
             {
-                ProcessMainMenu("1", system);
+                ProcessMainMenu(role, system);
             }
 
             return "Wrong choice";
@@ -720,7 +721,7 @@ namespace ToolLibrary
             int quantity;
 
             while (!int.TryParse(quantityString, out quantity)) {
-                Console.WriteLine("Wrong input! Please enter an integer value: ");
+                Console.Write("Wrong input! Please enter an integer value: ");
                 quantityString = Console.ReadLine();
             }
 
@@ -788,6 +789,8 @@ namespace ToolLibrary
 
         public static void ReturnToStaffMenu() {
             Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
+            staffName = "staff";
+            staffPin = "today123";
             string choice = Console.ReadLine();
             while (choice != "0")
             {
@@ -802,7 +805,7 @@ namespace ToolLibrary
             string choice = Console.ReadLine();
             while (choice != "0")
             {
-                Console.Write("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                Console.Write("Wrong Selection! Please enter 0 to return to Member menu: ");
                 choice = Console.ReadLine();
             }
         }
@@ -810,14 +813,11 @@ namespace ToolLibrary
         public static void ReturnToMainMenu(ToolLibrarySystem toolSystem) {
             string choice = DisplayMainMenu();
             ProcessMainMenu(choice, toolSystem);
-            
-        }
+         }
 
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
-
-
-            while (staffChoice != "1" && staffChoice != "2" &&
+            while (staffChoice != "0" && staffChoice != "1" && staffChoice != "2" &&
                    staffChoice != "3" && staffChoice != "4" && staffChoice != "5" && staffChoice != "6")
             {
                 Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
@@ -826,25 +826,27 @@ namespace ToolLibrary
 
             if (staffChoice == "1")
             {
-                string categoryChoice = DisplayAndGetCategories();
-                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                string categoryChoice = DisplayAndGetCategories("Staff");
+                string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
 
                 Console.Clear();
                 system.displayTools(toolType);
                 Tool toolToAdd = CreateATool();
                 system.add(toolToAdd, toolType);
-
+                Console.WriteLine("\n" + toolToAdd.Quantity + " pieces of " + toolToAdd.Name + " has been added");
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey();
                 Console.Clear();
                 system.displayTools(toolType);
 
                 Console.WriteLine("\n\n1. Add a new tool");
                 Console.WriteLine("0. Return to staff menu");
-                Console.WriteLine("\n\nPlease make a selection (1) or 0 to return to staff menu");
+                Console.Write("\n\nPlease enter 1 to add a new tool or 0 to return to Staff menu: ");
                 string choice = Console.ReadLine();
 
                 while (choice != "1" && choice != "0")
                 {
-                    Console.WriteLine("Wrong Selection! Please make a selection (1-2) or 0 to return to Staff menu: ");
+                    Console.WriteLine("Wrong Selection! Please enter 1 to add a new tool or 0 to return to Staff menu: ");
                     choice = Console.ReadLine();
                 }
 
@@ -860,8 +862,8 @@ namespace ToolLibrary
             }
             else if (staffChoice == "2")
             {
-                string categoryChoice = DisplayAndGetCategories();
-                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                string categoryChoice = DisplayAndGetCategories("Staff");
+                string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
                 Tool[] displayedTools = system.displayTools(toolType);
                 Console.Write("\n\nPlease make a selection from the tools above: ");
@@ -888,6 +890,10 @@ namespace ToolLibrary
 
                 selectedTool.AvailableQuantity += quantity;
                 selectedTool.Quantity += quantity;
+                Console.WriteLine("\n" + quantity + " pieces of " + selectedTool.Name + " has been added");
+                Console.WriteLine("Current quantity: " + selectedTool.Quantity);
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
 
                 Console.Clear();
                 system.displayTools(toolType);
@@ -899,8 +905,8 @@ namespace ToolLibrary
             }
             else if (staffChoice == "3")
             {
-                string categoryChoice = DisplayAndGetCategories();
-                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                string categoryChoice = DisplayAndGetCategories("Staff");
+                string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
                 Tool[] displayedTools = system.displayTools(toolType);
                 Console.WriteLine("\n\nPlease make a selection from the tools above: ");
@@ -925,10 +931,12 @@ namespace ToolLibrary
                     quantityString = Console.ReadLine();
                 }
 
+                system.delete(selectedTool, quantity);
 
-                selectedTool.AvailableQuantity -= quantity;
-                selectedTool.Quantity -= quantity;
-
+                Console.WriteLine("\n" + quantity + " pieces of " + selectedTool.Name + " has been deleted");
+                Console.WriteLine("Current quantity: " + selectedTool.Quantity);
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
                 Console.Clear();
                 system.displayTools(toolType);
 
@@ -940,12 +948,17 @@ namespace ToolLibrary
             {
                 Console.Clear();
                 DisplayMembers(system);
+
                 Member member = CreateMember();
                 system.add(member);
 
+                Console.WriteLine("\n" + member.FirstName + " " + member.LastName + " has been added. ");
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
+
+
                 Console.Clear();
                 DisplayMembers(system);
-
 
                 ReturnToStaffMenu();
             }
@@ -971,6 +984,12 @@ namespace ToolLibrary
 
                 Member memberToDelete = system.Members.toArray()[indexChoice - 1];
                 system.delete(memberToDelete);
+
+
+                Console.WriteLine("\n" + memberToDelete.FirstName + " " + memberToDelete.LastName + " has been removed. ");
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
+
                 memberToDelete.FirstName = "";
                 memberToDelete.LastName = "";
                 memberToDelete.PIN = "";
@@ -1002,6 +1021,8 @@ namespace ToolLibrary
                     }
                 }
 
+             
+                Console.WriteLine("\nMember not found! Please try again.");
                 Console.WriteLine("\n\n0. Return to staff menu");
                 ReturnToStaffMenu();
 
@@ -1009,26 +1030,109 @@ namespace ToolLibrary
             else {
                 staffName = "";
                 staffPin = "";
+                string mainMenuChoice = DisplayMainMenu();
+                ProcessMainMenu(mainMenuChoice, system);
+
             }
         }
 
 
         public static void ProcessMemberChoice(string memberChoice, ToolLibrarySystem system) {
-            while (memberChoice != "1" &&
-           memberChoice != "2" && memberChoice != "3" && memberChoice != "4" && memberChoice != "5")
+            while (memberChoice != "0" && memberChoice != "1" && memberChoice != "2" && memberChoice != "3" && memberChoice != "4" && memberChoice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
+                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Main menu: ");
                 memberChoice = Console.ReadLine();
             }
 
             if (memberChoice == "1")
             {
-                string categoryChoice = DisplayAndGetCategories();
-                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                string categoryChoice = DisplayAndGetCategories("Member");
+                string toolType = DisplayAndGetTooType(categoryChoice, system, "2");
                 Console.Clear();
                 system.displayTools(toolType);
 
                 ReturnToMemberMenu();
+            }
+            else if (memberChoice == "2")
+            {
+                string categoryChoice = DisplayAndGetCategories("Member");
+                string toolType = DisplayAndGetTooType(categoryChoice, system, "2");
+                Console.Clear();
+                Tool[] displayedTools = system.displayTools(toolType);
+
+                Console.Write("\nPlease make a selection from the tools above: ");
+                string choiceString = Console.ReadLine();
+
+                int indexChoice;
+
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length || indexChoice < 0)
+                {
+                    Console.Write("Wrong input! Please make a selection from the tools above: ");
+                    choiceString = Console.ReadLine();
+                }
+
+                Tool selectedTool = displayedTools[indexChoice - 1];
+
+                if (system.borrowTool(loggedInMember, selectedTool))
+                {
+                    Console.Clear();
+                    Console.WriteLine("You have successfully borrowed " + selectedTool.Name);
+                    Console.WriteLine();
+                    system.displayBorrowingTools(loggedInMember);
+                    ReturnToMemberMenu();
+                }
+
+
+            }
+            else if (memberChoice == "3")
+            {
+
+                string[] borrowedTools = loggedInMember.Tools;
+                Console.Clear();
+                system.displayBorrowingTools(loggedInMember);
+
+                Console.Write("Please make a selection from the tools above: ");
+
+                string choiceString = Console.ReadLine();
+                int indexChoice;
+
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > borrowedTools.Length)
+                {
+                    Console.Write("Wrong input! Please make a selection from the tools above: ");
+                    choiceString = Console.ReadLine();
+                }
+
+
+                system.returnTool(loggedInMember, loggedInMember.BorrowedTools.toArray()[indexChoice - 1]);
+
+                Console.WriteLine("\n" + borrowedTools[indexChoice - 1] + " has been returned. ");
+                Console.Write("\nPress any key to continue.");
+                Console.ReadKey();
+
+                Console.Clear();
+                system.displayBorrowingTools(loggedInMember);
+                Console.Write("\nPress any key to continue.");
+                Console.ReadKey();
+            }
+            else if (memberChoice == "4")
+            {
+                Console.Clear();
+                system.displayBorrowingTools(loggedInMember);
+                Console.Write("\nPress any key to continue.");
+                Console.ReadKey();
+            }
+            else if (memberChoice == "5")
+            {
+                Console.Clear();
+                system.displayTopThree();
+                Console.Write("\nPress any key to continue.");
+                Console.ReadKey();
+
+            }
+            else {
+                memberFirstName = "";
+                string mainMenuChoice = DisplayMainMenu();
+                ProcessMainMenu(mainMenuChoice, system);
             }
 
         }

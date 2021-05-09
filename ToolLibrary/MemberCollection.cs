@@ -1,59 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ToolLibrary
 {
 	// Author:    Cheng Liang
 	// Studen ID: N10346911
 	class MemberCollection : iMemberCollection, iBSTree
-    {
+	{
 		// private fields
 		private BTreeNode root;
 		private int number;
-		private int index = 0;
+
 		// properties
 		public int Number { get { return number; } set { number = value; } }
 
 		// constructor
-        public MemberCollection() {
-            root = null;
-        }
+		public MemberCollection() {
+			root = null;
+		}
 
-        public void add(Member member)
-        {
+		public void add(Member member)
+		{
 			number++;
-            if (root == null)
-                root = new BTreeNode(member);
-            else
-                add(member, root);
-        }
+			if (root == null)
+				root = new BTreeNode(member);
+			else
+				add(member, root);
+		}
 
-        private void add(Member aMember, BTreeNode ptr)
-        {
-            if (aMember.CompareTo(ptr.Member) < 0)
-            {
+		private void add(Member aMember, BTreeNode ptr)
+		{
+			if (aMember.CompareTo(ptr.Member) < 0)
+			{
 				if (ptr.LChild == null)
 					ptr.LChild = new BTreeNode(aMember);
 				else
 				{
 					add(aMember, ptr.LChild);
 				}
-            }
-            else
-            {
+			}
+			else
+			{
 				if (ptr.RChild == null)
 					ptr.RChild = new BTreeNode(aMember);
 				else
 				{
 					add(aMember, ptr.RChild);
 				}
-            }
-        }
+			}
+		}
 
 
-        public void delete(Member aMember)
-        {
+		public void delete(Member aMember)
+		{
 			// search for item and its parent
 			BTreeNode ptr = root; // search reference
 			BTreeNode parent = null; // parent of ptr
@@ -115,8 +116,8 @@ namespace ToolLibrary
 			}
 		}
 
-        public bool search(Member aMember)
-        {
+		public bool search(Member aMember)
+		{
 			return Search(aMember, root);
 		}
 
@@ -136,46 +137,30 @@ namespace ToolLibrary
 				return false;
 		}
 
+
+
+		Member[] memberArray = new Member[500]; // initialise an array with a resonable community size of 500 people
+		int index = 0;
 		public Member[] toArray()
-        {
-			resultList = InOrderTraverse();
-
-			for (int i = 0; i < resultList.Count; i++) {
-				resultArray[i] = resultList[i];
-			}
-
-			return resultArray;
-		}
-
-
-		public List<Member> InOrderTraverse()
 		{
-			return InOrderTraverse(root);
+			memberArray = new Member[500]; // reset the array for a new BST traversal
+			index = 0;                     // reset the index as well
+			InOrderTraverse(root);
+			return memberArray;
 		}
-		List<Member> resultList = new List<Member>();
-		Member[] resultArray = new Member[100];
 
-		private List<Member> InOrderTraverse(BTreeNode root)
+
+		private Member[] InOrderTraverse(BTreeNode root)
 		{
 
 			if (root != null)
 			{
 				InOrderTraverse(root.LChild);
-
-				int count = 0;
-				for (int i = 0; i < resultList.Count; i++) {
-					if (resultList[i].ContactNumber == root.Member.ContactNumber) {
-						count++;
-					}
-				}
-
-				if (count == 0) {
-					resultList.Add(root.Member);
-				}
+			    memberArray[index++] = root.Member;
 				InOrderTraverse(root.RChild);
 			}
 
-			return resultList;
+			return memberArray;
 		}
 
 

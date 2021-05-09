@@ -23,7 +23,7 @@ namespace ToolLibrary
 
         Tool[] displayTools(string aToolType); // display all the tools of a tool type selected by a member
 
-        void borrowTool(Member aMember, Tool aTool); //a member borrows a tool from the tool library
+        bool borrowTool(Member aMember, Tool aTool); //a member borrows a tool from the tool library
 
         void returnTool(Member aMember, Tool aTool); //a member return a tool to the tool library
 
