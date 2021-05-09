@@ -32,7 +32,6 @@ namespace ToolLibrary
                     toolCollections[i].add(aTool);
                 }
             }
-
         }
 
         public void add(Tool aTool, int quantity)
@@ -87,16 +86,16 @@ namespace ToolLibrary
         {
             Tool tool = null;
             Tool[] displayedTools = null;
-            string header = "==========================" + aToolType + "=========================";
+            string header = "===============================" + aToolType + "==============================";
             Console.WriteLine(header);
-            Console.WriteLine("   {0, -15}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
+            Console.WriteLine("   {0, -25}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
             for (int i = 0; i < toolCollections.Length; i++) {
                 if (toolCollections[i].Name == aToolType) {
                     displayedTools = new Tool[toolCollections[i].Number]; 
                     for (int j = 0; j < toolCollections[i].Number; j++) {
                         tool = toolCollections[i].toArray()[j];
                         displayedTools[j] = tool;
-                        Console.WriteLine(j + 1 +  ". {0, -15}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
+                        Console.WriteLine(j + 1 +  ". {0, -25}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
                     }
                     break;
                 }

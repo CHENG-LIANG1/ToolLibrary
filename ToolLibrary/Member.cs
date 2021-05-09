@@ -21,18 +21,15 @@ namespace ToolLibrary
         public string PIN { get { return pin; } set { pin = value; } }
         public string[] Tools { get {
                 string[] toolNames = new string[3];
-                for (int i = 0; i < borrowedTools.Length; i++) {
-                    if (borrowedTools[i] != null)
-                    {
-                        toolNames[i] = borrowedTools[i].Name;
-                        break;
-                    }
+                for (int i = 0; i < borrowedTools.toArray().Length; i++) {
+                    toolNames[i] = borrowedTools.toArray()[i].Name;
                 }
+
                 return toolNames;
             } }
 
 
-        private Tool[] borrowedTools = new Tool[3];
+        private ToolCollection borrowedTools = new ToolCollection("Borrowed Tools");
 
         // constructor
         public Member(string firstName, string lastName, string phoneNum, string pin) {
@@ -45,23 +42,16 @@ namespace ToolLibrary
 
         public void addTool(Tool aTool)
         {
-            for (int i = 0; i < borrowedTools.Length; i++) {
-                if (borrowedTools[i] != null) {
-                    borrowedTools[i] = aTool;
-                    break;
-                }
-            }
+            borrowedTools.add(aTool);
+            borrowedTools.Number++;
+     
         }
 
         public void deleteTool(Tool aTool)
         {
-            for (int i = 0; i < borrowedTools.Length; i++)
-            {
-                if (borrowedTools[i] != null && borrowedTools[i].Name == aTool.Name)
-                {
-                    borrowedTools[i] = null;
-                }
-            }
+
+            borrowedTools.delete(aTool);
+
         }
 
         override public string ToString()

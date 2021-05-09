@@ -15,7 +15,7 @@ namespace ToolLibrary
         private string name;
 
         // properties
-        public int Number { get { return number; }  }
+        public int Number { get { return number; } set { number = value; } }
         public string Name { get { return name; } }
 
         // constructor
@@ -68,7 +68,6 @@ namespace ToolLibrary
 
         public void delete(Tool tool)
         {
-            tool.Quantity = 0;
             int index = findToolIndex(tool);
             if (index >=0) {
                 toolCollection[index] = null;

@@ -63,6 +63,11 @@ namespace ToolLibrary
             ToolCollection braking = new ToolCollection("Braking");
             ToolCollection driveTrain = new ToolCollection("Drivetrain");
 
+
+
+            
+
+
             ToolLibrarySystem toolSystem = new ToolLibrarySystem();
 
             toolSystem.Members = new MemberCollection();
@@ -120,8 +125,16 @@ namespace ToolLibrary
             driveTrain
 
         };
+            ToolCollection[] allToolCollections = toolSystem.ToolCollections;
 
+            for (int i = 0; i < allToolCollections.Length; i++) {
+
+                allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 1"));
+                allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 2"));
+
+            }
             return toolSystem;
+
 
 
         }

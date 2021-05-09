@@ -11,6 +11,9 @@ namespace ToolLibrary
     {
         static string staffName = "";
         static string staffPin = "";
+        static string memberFirstName = "";
+        static string memberLastName = "";
+        static string pin = "";
         private static MemberCollection members = null;
         public static string DisplayMainMenu()
         {
@@ -23,6 +26,37 @@ namespace ToolLibrary
             return Console.ReadLine();
         }
 
+        public static bool LoginAMember(ToolLibrarySystem toolSystem) {
+            Console.Clear();
+
+
+            if (memberFirstName == "" && memberLastName == "")
+            {
+                Console.Write("Please enter your first name:   ");
+                memberFirstName = Console.ReadLine();
+                Console.Write("Please enter your last name:    ");
+                memberLastName = Console.ReadLine();
+                Console.Write("Please enter password(4 digits): ");
+                pin = Console.ReadLine();
+            }
+
+            Member[] memberArray = toolSystem.Members.toArray();
+
+            for (int i = 0; i < memberArray.Length; i++)
+            {
+                if (memberArray[i] != null &&
+                    memberArray[i].LastName.ToLower() == memberLastName.ToLower() && memberArray[i].FirstName.ToLower() == memberFirstName.ToLower() && memberArray[i].PIN == pin)
+                {
+                    memberFirstName = memberArray[i].FirstName;
+                    memberLastName = memberArray[i].LastName;
+                    pin = memberArray[i].PIN;
+
+                    return true;
+                }   
+            }
+            return false;
+        }
+
         public static void ProcessMainMenu(string mainMenuChoice, ToolLibrarySystem toolSystem)
         {
 
@@ -31,47 +65,102 @@ namespace ToolLibrary
                 if (mainMenuChoice == "1")
                 {
 
-                    if (staffName.ToLower() != "staff")
+                    while (staffName.ToLower() != "staff")
                     {
-                        Console.Write("\nPlease enter the staff name: ");
+                        Console.Clear();
+                        Console.Write("Please enter the staff name: ");
                         staffName = Console.ReadLine();
+                        if (staffName != "staff") {
+                            Console.Write("\nWrong staff name! Enter 0 to return to main menu or ");
+                            Console.Write("press any other key to try again: ");
+                            string choice = Console.ReadLine();
+
+                            while (choice == "0")
+                            {
+                                Console.Clear();
+                                ReturnToMainMenu(toolSystem);
+                            }
+                        }
                     }
 
 
                     if (staffName.ToLower() == "staff")
                     {
-
-                        if (staffPin != "today123")
+                        staffName = "";
+                        while (staffPin != "today123")
                         {
+                            Console.Clear();
                             Console.Write("Please enter the staff pin: ");
                             staffPin = Console.ReadLine();
+                            if (staffPin != "today123") {
+                                Console.Write("\nWrong staff pin! Enter 0 to return to main menu or ");
+                                Console.Write("press any other key to try again: ");
+
+                                string choice = Console.ReadLine();
+
+                                while (choice == "0") {
+                                    Console.Clear();
+                                    ReturnToMainMenu(toolSystem);
+                                }
+                            }
                         }
 
-                        if (staffPin == "today123")
+                        DisplayStaffMenu();
+                        string staffChoice = Console.ReadLine();
+
+                        if (staffChoice != "0")
                         {
-                            DisplayStaffMenu();
-                            string staffChoice = Console.ReadLine();
-
-                            if (staffChoice != "0")
-                            {
-                                ProcessStaffChoice(staffChoice, toolSystem);
-                            }
-                            else
-                            {
-                                Console.Clear();
-                                staffName = "";
-                                staffPin = "";
-                                string choice = DisplayMainMenu();
-                                ProcessMainMenu(choice, toolSystem);
-                            }
+                            ProcessStaffChoice(staffChoice, toolSystem);
                         }
+                        else
+                        {
+                            Console.Clear();
+                            staffName = "";
+                            staffPin = "";
+                            Console.Clear();
+                            ReturnToMainMenu(toolSystem);
+
+                        }
+                        
                     }
                 }
                 else if (mainMenuChoice == "2")
                 {
+
+                    while (!LoginAMember(toolSystem)) {
+                        Console.Clear();
+                        Console.WriteLine("Wrong member name or pin! Please try again!");
+                        Console.WriteLine("\nEnter 0 to return to Main menu or ");
+                        Console.Write("press any other key to try again: ");
+                        memberFirstName = "";
+                        memberLastName = "";
+                        string choice = Console.ReadLine();
+                        while (choice == "0")
+                        {
+                            Console.Clear();
+                            ReturnToMainMenu(toolSystem);
+                        }
+                    }
+
                     Console.Clear();
                     DisplayMemberMenu();
+
                     string memberChoice = Console.ReadLine();
+
+                    if (memberChoice != "0")
+                    {
+        
+                        ProcessMemberChoice(memberChoice, toolSystem);
+
+                    }
+                    else {
+                        Console.Clear();
+                        memberFirstName = "";
+                        memberLastName = "";
+                        string choice = DisplayMainMenu();
+                        ProcessMainMenu(choice, toolSystem);
+                    }
+
                 }
                 else
                 {
@@ -80,9 +169,7 @@ namespace ToolLibrary
                 }
             }
 
-            // set the staff name and pin to empty string so they are required when next login
-            staffName = "";
-            staffPin = "";
+            Environment.Exit(0);
         }
 
         public static void DisplayStaffMenu()
@@ -704,16 +791,31 @@ namespace ToolLibrary
             string choice = Console.ReadLine();
             while (choice != "0")
             {
-                Console.WriteLine("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                Console.Write("Wrong Selection! Please enter 0 to return to Staff menu: ");
                 choice = Console.ReadLine();
             }
 
         }
 
+        public static void ReturnToMemberMenu() {
+            Console.WriteLine("\nPlease enter 0 to return to Member menu: ");
+            string choice = Console.ReadLine();
+            while (choice != "0")
+            {
+                Console.Write("Wrong Selection! Please enter 0 to return to Staff menu: ");
+                choice = Console.ReadLine();
+            }
+        }
+
+        public static void ReturnToMainMenu(ToolLibrarySystem toolSystem) {
+            string choice = DisplayMainMenu();
+            ProcessMainMenu(choice, toolSystem);
+            
+        }
+
         public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
-            DisplayStaffMenu();
-            Console.WriteLine(staffChoice);
+
 
             while (staffChoice != "1" && staffChoice != "2" &&
                    staffChoice != "3" && staffChoice != "4" && staffChoice != "5" && staffChoice != "6")
@@ -762,14 +864,14 @@ namespace ToolLibrary
                 string toolType = DisplayAndGetTooType(categoryChoice, system);
                 Console.Clear();
                 Tool[] displayedTools = system.displayTools(toolType);
-                Console.WriteLine("\n\nPlease make a selection from the tools above: ");
+                Console.Write("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
                 while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length)
                 {
-                    Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
+                    Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
                 }
 
@@ -880,7 +982,8 @@ namespace ToolLibrary
                 ReturnToStaffMenu();
 
             }
-            else if (staffChoice == "6") {
+            else if (staffChoice == "6")
+            {
                 Console.Clear();
                 Console.Write("Please enter a member first name: ");
                 string firstName = Console.ReadLine();
@@ -888,19 +991,51 @@ namespace ToolLibrary
                 string lastName = Console.ReadLine();
 
                 Member[] memberArray = system.Members.toArray();
-                for (int i = 0; i < memberArray.Length; i++) {
-                    
+                for (int i = 0; i < memberArray.Length; i++)
+                {
+
                     if (memberArray[i] != null &&
-                        memberArray[i].LastName.ToLower() == lastName.ToLower() && memberArray[i].FirstName.ToLower() == firstName.ToLower()) {
+                        memberArray[i].LastName.ToLower() == lastName.ToLower() && memberArray[i].FirstName.ToLower() == firstName.ToLower())
+                    {
                         Console.Clear();
                         Console.WriteLine("Contact Number: " + memberArray[i].ContactNumber);
                     }
-                
                 }
 
                 Console.WriteLine("\n\n0. Return to staff menu");
                 ReturnToStaffMenu();
 
             }
-        }   }
+            else {
+                staffName = "";
+                staffPin = "";
+            }
+        }
+
+
+        public static void ProcessMemberChoice(string memberChoice, ToolLibrarySystem system) {
+            while (memberChoice != "1" &&
+           memberChoice != "2" && memberChoice != "3" && memberChoice != "4" && memberChoice != "5")
+            {
+                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
+                memberChoice = Console.ReadLine();
+            }
+
+            if (memberChoice == "1")
+            {
+                string categoryChoice = DisplayAndGetCategories();
+                string toolType = DisplayAndGetTooType(categoryChoice, system);
+                Console.Clear();
+                system.displayTools(toolType);
+
+                ReturnToMemberMenu();
+            }
+
+        }
+
+
+    }
+        
+
+
 }
