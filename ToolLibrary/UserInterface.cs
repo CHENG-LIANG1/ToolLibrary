@@ -710,8 +710,11 @@ namespace ToolLibrary
             return "Wrong choice";
         }
 
-        public static Tool CreateATool()
+        static bool toolHasSameName = false;
+        public static Tool AddATool(ToolLibrarySystem toolSystem, string toolType)
         {
+
+
             Console.Write("Please enter a tool name: ");
             string toolName = Console.ReadLine();
             Console.Write("Please enter a quantity: ");
@@ -727,6 +730,25 @@ namespace ToolLibrary
 
 
             Tool tool = new Tool(toolName);
+            ToolCollection toolsInTheToolType = null;
+            for (int i = 0; i < toolSystem.ToolCollections.Length; i++) {
+                if (toolType == toolSystem.ToolCollections[i].Name) {
+                    toolsInTheToolType = toolSystem.ToolCollections[i];
+                }
+            }
+
+            for (int i = 0; i < toolsInTheToolType.Number; i++) {
+                if (toolName == toolsInTheToolType.toArray()[i].Name) {
+                    tool = toolsInTheToolType.toArray()[i];
+
+                    Console.WriteLine("\nThe tool you want to add is already in the system, new pieces of this tool will be added.");
+                    Console.Write("Press any key to continue.\n");
+                    Console.ReadKey();
+                    toolHasSameName = true;
+                }
+            }
+
+
             tool.Quantity += quantity;
             tool.AvailableQuantity += quantity;
 
@@ -828,11 +850,17 @@ namespace ToolLibrary
             {
                 string categoryChoice = DisplayAndGetCategories("Staff");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
-
                 Console.Clear();
                 system.displayTools(toolType);
-                Tool toolToAdd = CreateATool();
-                system.add(toolToAdd, toolType);
+
+
+                Tool toolToAdd = AddATool(system, toolType);
+
+                if (!toolHasSameName)
+                {
+                    system.add(toolToAdd, toolType);
+                    toolHasSameName = false;
+                }
                 Console.WriteLine("\n" + toolToAdd.Quantity + " pieces of " + toolToAdd.Name + " has been added");
                 Console.WriteLine("Press any key to continue.");
                 Console.ReadKey();
