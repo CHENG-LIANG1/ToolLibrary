@@ -12,7 +12,7 @@ namespace ToolLibrary
         // private fields
         private int number;
         private Tool[] toolCollection;
-        private string name;
+        private string name; // for identifying tool types
 
         // properties
         public int Number { get { return number; } set { number = value; } }
@@ -73,7 +73,6 @@ namespace ToolLibrary
                 toolCollection[index] = null;
                 number--;
                 toolCollection = resizeArray(toolCollection);
-
             }
         }
 
