@@ -154,11 +154,10 @@ namespace ToolLibrary
                         ProcessMemberChoice(memberChoice, toolSystem);
                     }
                     else {
-                        Console.Clear();
+
                         memberFirstName = "";
                         memberLastName = "";
-                        string choice = DisplayMainMenu();
-                        ProcessMainMenu(choice, toolSystem);
+                        ReturnToMainMenu(toolSystem);
                     }
 
                 }
@@ -797,7 +796,7 @@ namespace ToolLibrary
 
                 for (int i = 0; i < memberArray.Length; i++)
                 {
-                    if (memberArray[i] != null && memberArray[i].ContactNumber != "")
+                    if (memberArray[i] != null)
                     {
                         validMemberNum++;
                         Console.WriteLine(i + 1 + ". {0, -15}{1, -15} {2, -15}", memberArray[i].FirstName, memberArray[i].LastName, memberArray[i].ContactNumber);
@@ -833,6 +832,7 @@ namespace ToolLibrary
         }
 
         public static void ReturnToMainMenu(ToolLibrarySystem toolSystem) {
+            Console.Clear();
             string choice = DisplayMainMenu();
             ProcessMainMenu(choice, toolSystem);
          }
@@ -1014,15 +1014,6 @@ namespace ToolLibrary
                 system.delete(memberToDelete);
 
 
-                Console.WriteLine("\n" + memberToDelete.FirstName + " " + memberToDelete.LastName + " has been removed. ");
-                Console.WriteLine("\nPress any key to continue.");
-                Console.ReadKey();
-
-                memberToDelete.FirstName = "";
-                memberToDelete.LastName = "";
-                memberToDelete.PIN = "";
-                memberToDelete.ContactNumber = "";
-
                 Console.Clear();
                 DisplayMembers(system);
                 Console.WriteLine("\n\n0. Return to staff menu");
@@ -1058,8 +1049,7 @@ namespace ToolLibrary
             else {
                 staffName = "";
                 staffPin = "";
-                string mainMenuChoice = DisplayMainMenu();
-                ProcessMainMenu(mainMenuChoice, system);
+                ReturnToMainMenu(system);
 
             }
         }
@@ -1159,8 +1149,7 @@ namespace ToolLibrary
             }
             else {
                 memberFirstName = "";
-                string mainMenuChoice = DisplayMainMenu();
-                ProcessMainMenu(mainMenuChoice, system);
+                ReturnToMainMenu(system);
             }
 
         }

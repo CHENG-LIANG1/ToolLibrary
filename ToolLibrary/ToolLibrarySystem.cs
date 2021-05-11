@@ -85,7 +85,19 @@ namespace ToolLibrary
 
         public void delete(Member member)
         {
-            members.delete(member);
+            if (member.BorrowedTools.Number > 0)
+            {
+                Console.WriteLine("\nCannot delete this member! The member is currently borrowing tools.");
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
+            }
+            else {
+                members.delete(member);
+                Console.WriteLine("\n" + member.FirstName + " " + member.LastName + " has been removed. ");
+                Console.WriteLine("\nPress any key to continue.");
+                Console.ReadKey();
+            }
+
         }
 
 
