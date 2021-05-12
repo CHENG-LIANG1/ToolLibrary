@@ -66,7 +66,7 @@ namespace ToolLibrary
 
         override public string ToString()
         {
-            return "Name: " + FirstName + " " + LastName + ", Phone Number: " + ContactNumber;
+            return String.Format("{0, -15}{1, -15} {2, -15}", firstName, lastName, contactNumber);
         }
 
         public int CompareTo(Member other)
