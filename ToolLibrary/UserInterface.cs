@@ -14,7 +14,9 @@ namespace ToolLibrary
         static string memberFirstName = "";
         static string memberLastName = "";
         static string pin = "";
-        private static MemberCollection members = null;
+        public static string currentlySelectedToolType = "";
+
+
         public static string DisplayMainMenu()
         {
             Console.WriteLine("===============Main Menu===============");
@@ -748,9 +750,7 @@ namespace ToolLibrary
             }
 
 
-            tool.Quantity += quantity;
-            tool.AvailableQuantity += quantity;
-
+            toolSystem.add(tool, quantity);
             return tool;
         }
 
@@ -853,12 +853,12 @@ namespace ToolLibrary
                 Console.Clear();
                 system.displayTools(toolType);
 
-
+                currentlySelectedToolType = toolType;
                 Tool toolToAdd = AddATool(system, toolType);
 
                 if (!toolHasSameName)
                 {
-                    system.add(toolToAdd, toolType);
+                    system.add(toolToAdd);
                     toolHasSameName = false;
                 }
                 Console.WriteLine("\n" + toolToAdd.Quantity + " pieces of " + toolToAdd.Name + " has been added");
@@ -893,19 +893,19 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Staff");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
-                Tool[] displayedTools = system.displayTools(toolType);
+                ToolCollection displayedTools = system.displayTools(toolType);
                 Console.Write("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number)
                 {
                     Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
                 }
 
-                Tool selectedTool = displayedTools[indexChoice - 1];
+                Tool selectedTool = displayedTools.toArray()[indexChoice - 1];
                 Console.Write("Please enter the quantity of this tool you want to add: ");
                 string quantityString = Console.ReadLine();
                 int quantity;
@@ -916,8 +916,7 @@ namespace ToolLibrary
                     quantityString = Console.ReadLine();
                 }
 
-                selectedTool.AvailableQuantity += quantity;
-                selectedTool.Quantity += quantity;
+                system.add(selectedTool, quantity);
                 Console.WriteLine("\n" + quantity + " pieces of " + selectedTool.Name + " has been added");
                 Console.WriteLine("Current quantity: " + selectedTool.Quantity);
                 Console.WriteLine("\nPress any key to continue.");
@@ -936,19 +935,19 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Staff");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
-                Tool[] displayedTools = system.displayTools(toolType);
+                ToolCollection displayedTools = system.displayTools(toolType);
                 Console.WriteLine("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number)
                 {
                     Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
                 }
 
-                Tool selectedTool = displayedTools[indexChoice - 1];
+                Tool selectedTool = displayedTools.toArray()[indexChoice - 1];
                 Console.Write("Please enter the quantity of this tool you want to remove: ");
                 string quantityString = Console.ReadLine();
                 int quantity;
@@ -1027,6 +1026,7 @@ namespace ToolLibrary
                 string firstName = Console.ReadLine();
                 Console.Write("Please enter a member last name:  ");
                 string lastName = Console.ReadLine();
+                bool foundMember = false;
 
                 Member[] memberArray = system.Members.toArray();
                 for (int i = 0; i < memberArray.Length; i++)
@@ -1037,23 +1037,25 @@ namespace ToolLibrary
                     {
                         Console.Clear();
                         Console.WriteLine("Contact Number: " + memberArray[i].ContactNumber);
+                        foundMember = true;
+                        break;
                     }
                 }
 
-             
-                Console.WriteLine("\nMember not found! Please try again.");
+                if (!foundMember) {
+                    Console.WriteLine("\nMember not found! Please try again.");
+   
+                }
+
                 Console.WriteLine("\n\n0. Return to staff menu");
                 ReturnToStaffMenu();
-
             }
             else {
                 staffName = "";
                 staffPin = "";
                 ReturnToMainMenu(system);
-
             }
         }
-
 
         public static void ProcessMemberChoice(string memberChoice, ToolLibrarySystem system) {
             while (memberChoice != "0" && memberChoice != "1" && memberChoice != "2" && memberChoice != "3" && memberChoice != "4" && memberChoice != "5")
@@ -1076,20 +1078,20 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Member");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "2");
                 Console.Clear();
-                Tool[] displayedTools = system.displayTools(toolType);
+                ToolCollection displayedTools = system.displayTools(toolType);
 
                 Console.Write("\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Length || indexChoice < 0)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice < 0)
                 {
                     Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
                 }
 
-                Tool selectedTool = displayedTools[indexChoice - 1];
+                Tool selectedTool = displayedTools.toArray()[indexChoice - 1];
 
                 if (system.borrowTool(loggedInMember, selectedTool))
                 {
@@ -1105,7 +1107,7 @@ namespace ToolLibrary
             else if (memberChoice == "3")
             {
 
-                string[] borrowedTools = loggedInMember.Tools;
+                string[] borrowedTools = system.listTools(loggedInMember);
                 Console.Clear();
                 system.displayBorrowingTools(loggedInMember);
 
@@ -1120,8 +1122,10 @@ namespace ToolLibrary
                     choiceString = Console.ReadLine();
                 }
 
+                string toolToReturnName = system.listTools(loggedInMember)[indexChoice - 1];
+                Tool toolToReturn = new Tool(toolToReturnName);
 
-                system.returnTool(loggedInMember, loggedInMember.BorrowedTools.toArray()[indexChoice - 1]);
+                system.returnTool(loggedInMember, toolToReturn);
 
                 Console.WriteLine("\n" + borrowedTools[indexChoice - 1] + " has been returned. ");
                 Console.Write("\nPress any key to continue.");
@@ -1145,7 +1149,6 @@ namespace ToolLibrary
                 system.displayTopThree();
                 Console.Write("\nPress any key to continue.");
                 Console.ReadKey();
-
             }
             else {
                 memberFirstName = "";

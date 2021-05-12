@@ -40,6 +40,6 @@ namespace ToolLibrary
 
         void deleteTool(Tool aTool); //delete a given tool from the list of tools that this member is currently holding
 
-         string ToString(); //return a string containing the first name, lastname, and contact phone number of this memeber
+        string ToString(); //return a string containing the first name, lastname, and contact phone number of this memeber
     }
 }

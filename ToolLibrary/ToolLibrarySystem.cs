@@ -10,28 +10,41 @@ namespace ToolLibrary
     {
 
         // private fields
-        private ToolCollection aToolCollection;
-        private MemberCollection members = new MemberCollection();
+        private MemberCollection members;
         private ToolCollection[] toolCollections;
-     
+        private ToolCollection allTools;
 
+        // properties
         public ToolCollection[] ToolCollections { get { return toolCollections; } set { toolCollections = value; } }
         public MemberCollection Members { get { return members; }  set { members = value; } }
-        
-       
-        public ToolLibrarySystem()
-        {
+
+        // constructor
+        public ToolLibrarySystem() {
+            members = new MemberCollection();
+            allTools= new ToolCollection("All the tools");                                                      
         }
 
-
-        public void add(Tool aTool, string aToolType)
+        public void add(Tool aTool)
         {
             for (int i = 0; i < toolCollections.Length; i++) {
-                if (toolCollections[i].Name == aToolType) {
+                if (toolCollections[i].Name == UserInterface.currentlySelectedToolType) {
                     toolCollections[i].add(aTool);
                 }
             }
         }
+
+        // private method to put all tools in an array
+        private void putAllToolsInToArray()
+        {
+            for (int i = 0; i < toolCollections.Length; i++)
+            {
+                for (int j = 0; j < toolCollections[i].toArray().Length; j++)
+                {
+                    allTools.add(toolCollections[i].toArray()[j]);
+                }
+            }
+        }
+
 
         public void add(Tool aTool, int quantity)
         {
@@ -48,14 +61,14 @@ namespace ToolLibrary
         {
             if (aTool.AvailableQuantity > 0)
             {
-                if (aMember.BorrowedTools.Number < 3)
+                if (aMember.Tools == null || aMember.Tools.Length < 3)
                 {
                     aMember.addTool(aTool);
                     aTool.addBorrower(aMember);
                     return true;
                 }
                 else {
-                    Console.WriteLine("You have borrowed 3 tools, please return some of them before borrowing.");
+                    Console.WriteLine("\nYou have borrowed 3 tools, please return some of them before borrowing.");
                     Console.WriteLine("Press any key to go back. ");
                     Console.ReadKey();
                 }
@@ -73,7 +86,7 @@ namespace ToolLibrary
 
         public void delete(Tool aTool)
         {
-            aToolCollection.delete(aTool);
+            allTools.delete(aTool);
         }
 
         public void delete(Tool aTool, int quantity) // the situation 'quantity > available quantity' has been handled in UserInterface class
@@ -85,7 +98,7 @@ namespace ToolLibrary
 
         public void delete(Member member)
         {
-            if (member.BorrowedTools.Number > 0)
+            if (member.Tools.Length > 0)
             {
                 Console.WriteLine("\nCannot delete this member! The member is currently borrowing tools.");
                 Console.WriteLine("\nPress any key to continue.");
@@ -101,19 +114,17 @@ namespace ToolLibrary
         }
 
 
-        public Tool[] displayTools(string aToolType)
+        public ToolCollection displayTools(string aToolType)
         {
-            Tool tool = null;
-            Tool[] displayedTools = null;
+            ToolCollection displayedTools = new ToolCollection("Displayed Tools");
             string header = "===============================" + aToolType + "==============================";
             Console.WriteLine(header);
             Console.WriteLine("   {0, -25}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
             for (int i = 0; i < toolCollections.Length; i++) {
                 if (toolCollections[i].Name == aToolType) {
-                    displayedTools = new Tool[toolCollections[i].Number]; 
                     for (int j = 0; j < toolCollections[i].Number; j++) {
-                        tool = toolCollections[i].toArray()[j];
-                        displayedTools[j] = tool;
+                        Tool tool = toolCollections[i].toArray()[j];
+                        displayedTools.add(tool);
                         Console.WriteLine(j + 1 +  ". {0, -25}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
                     }
                     break;
@@ -153,26 +164,13 @@ namespace ToolLibrary
             return topTool;
         }
 
-        Tool[] allTools = new Tool[1500]; // Recommended size for each tool type is 30, there are 49 tool types
-                                          // 1500 is a resonable size to store all the tools
-        int index = 0;
-
-        private void putAllToolsInToArray() {
-            for (int i = 0; i < toolCollections.Length; i++)
-            {
-                for (int j = 0; j < toolCollections[i].toArray().Length; j++)
-                {
-                    allTools[index++] = toolCollections[i].toArray()[j];
-                }
-            }
-        }
 
         public void displayTopThree()
         {
             putAllToolsInToArray();
             Console.WriteLine("===============Top 3 Borrowed Tools===============");
             for (int i = 0; i < 3; i++) {
-                Tool topBorrowedTool = findMaxBorrowing(allTools);
+                Tool topBorrowedTool = findMaxBorrowing(allTools.toArray());
                 if (topBorrowedTool != null)
                 {
                     Console.WriteLine(i + 1  + ". {0, -25}  Total Borrowings: {1, -20}", topBorrowedTool.Name, topBorrowedTool.NoBorrowings);

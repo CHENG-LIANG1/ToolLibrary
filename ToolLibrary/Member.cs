@@ -13,6 +13,9 @@ namespace ToolLibrary
         private string lastName;
         private string contactNumber;
         private string pin;
+        private int numOfBorrowingTools;
+        private ToolCollection borrowedTools = new ToolCollection("Borrowed Tools");
+        private string[] toolNames;
 
         // properties
         public string FirstName { get { return firstName; } set { firstName = value; } }
@@ -20,7 +23,7 @@ namespace ToolLibrary
         public string ContactNumber { get { return contactNumber; } set { contactNumber = value; } }
         public string PIN { get { return pin; } set { pin = value; } }
         public string[] Tools { get {
-                string[] toolNames = new string[3];
+
                 for (int i = 0; i < borrowedTools.toArray().Length; i++) {
                     if (borrowedTools.toArray()[i] != null)
                     {
@@ -31,11 +34,6 @@ namespace ToolLibrary
             } 
         }
 
-        public ToolCollection BorrowedTools { get { return borrowedTools; } set { borrowedTools = value; } }
-
-
-
-        private ToolCollection borrowedTools = new ToolCollection("Borrowed Tools");
 
         // constructor
         public Member(string firstName, string lastName, string phoneNum, string pin) {
@@ -46,18 +44,24 @@ namespace ToolLibrary
         }
 
 
+        // private method to resize the array after addition and deletion
+        private void resizeArray()
+        {
+            toolNames= new string[numOfBorrowingTools];
+        }
+
         public void addTool(Tool aTool)
         {
             borrowedTools.add(aTool);
-
-     
+            numOfBorrowingTools++;
+            resizeArray();
         }
 
         public void deleteTool(Tool aTool)
         {
-
             borrowedTools.delete(aTool);
-
+            numOfBorrowingTools--;
+            resizeArray();
         }
 
         override public string ToString()

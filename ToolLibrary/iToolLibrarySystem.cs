@@ -6,7 +6,7 @@ namespace ToolLibrary
 {
     interface iToolLibrarySystem
     {
-        void add(Tool aTool, string aToolType); // add a new tool to the system
+        void add(Tool aTool); // add a new tool to the system
 
         void add(Tool aTool, int quantity); //add new pieces of an existing tool to the system
 
@@ -21,7 +21,7 @@ namespace ToolLibrary
         void displayBorrowingTools(Member aMember); //given a member, display all the tools that the member are currently renting
 
 
-        Tool[] displayTools(string aToolType); // display all the tools of a tool type selected by a member
+        ToolCollection displayTools(string aToolType); // display all the tools of a tool type selected by a member
 
         bool borrowTool(Member aMember, Tool aTool); //a member borrows a tool from the tool library
 
