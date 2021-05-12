@@ -142,7 +142,6 @@ namespace ToolLibrary
      
 
         private Tool findMaxBorrowing(Tool[] tools) {
-
             int numOfBoroowings = -1;
             Tool topTool = null;
             for (int i = 0; i < tools.Length; i++)
@@ -192,19 +191,12 @@ namespace ToolLibrary
 
         public void displayBorrowingTools(Member aMember)
         {
-            string[] borrowedTools = aMember.Tools;
-
-
             Console.WriteLine("===============Borrowed Tools===============");
-            for (int i = 0; i < borrowedTools.Length; i++)
+            for (int i = 0; i < aMember.Tools.Length; i++)
             {
-                Console.WriteLine(i + 1 + ". " + borrowedTools[i]);
-
+                Console.WriteLine(i + 1 + ". " + aMember.Tools[i]);
             }
             Console.WriteLine("============================================");
-
-
-
         }
     }
 }

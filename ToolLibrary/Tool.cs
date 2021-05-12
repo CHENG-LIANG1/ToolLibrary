@@ -36,7 +36,6 @@ namespace ToolLibrary
                 noBorrowings++;
                 availableQuantity--;
             }
-
         }
 
         public void deleteBorrower(Member member)
