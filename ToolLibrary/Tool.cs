@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToolLibrary
 {
@@ -13,6 +11,7 @@ namespace ToolLibrary
         private int quantity;
         private int availableQuantity;
         private int noBorrowings;
+        private MemberCollection toolBorrowers;
 
         // properties
         public string Name { get { return name; } set { name = value; } }
@@ -23,10 +22,9 @@ namespace ToolLibrary
 
         // constructor
         public Tool(string name) {
+            toolBorrowers = new MemberCollection();
             this.name = name;
         }
-
-        private MemberCollection toolBorrowers = new MemberCollection();
 
         public void addBorrower(Member member)
         {

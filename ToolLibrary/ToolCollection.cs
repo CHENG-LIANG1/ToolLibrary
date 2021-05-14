@@ -14,7 +14,7 @@ namespace ToolLibrary
         private string name; // for identifying tool types
 
         // properties
-        public int Number { get { return number; } set { number = value; } }
+        public int Number { get { return number; } }
         public string Name { get { return name; } }
 
         // constructor
