@@ -14,7 +14,7 @@ namespace ToolLibrary
         private string contactNumber;
         private string pin;
         private int numOfBorrowingTools;
-        private ToolCollection borrowedTools = new ToolCollection("Borrowed Tools");
+        private ToolCollection borrowedTools;
         private string[] toolNames;
 
         // properties
@@ -37,6 +37,7 @@ namespace ToolLibrary
 
         // constructor
         public Member(string firstName, string lastName, string phoneNum, string pin) {
+            borrowedTools = new ToolCollection("Borrowed Tools");
             this.FirstName = firstName;
             this.LastName = lastName;
             this.ContactNumber = phoneNum;
