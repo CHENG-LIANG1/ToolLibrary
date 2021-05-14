@@ -8,7 +8,6 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class ToolCollection : iToolCollection
     {
-
         // private fields
         private int number;
         private Tool[] toolCollection;
@@ -28,7 +27,6 @@ namespace ToolLibrary
         // return the index of the tool in the array if found the tool
         // return -1 if not found
         private int findToolIndex(Tool tool) {
-
             for (int i = 0; i < toolCollection.Length; i++) {
                 if (toolCollection[i] != null && toolCollection[i].Name == tool.Name)
                 {
@@ -38,17 +36,14 @@ namespace ToolLibrary
             return -1;
         }
 
-
         // private method to resize the array after addition and deletion
         private Tool[] resizeArray(Tool[] toolArray) {
             Tool[] array = new Tool[number];
-
             for (int i = 0; i < toolArray.Length; i++) {
                 if (toolArray[i] != null) {
                     array[i] = toolArray[i];
                 }
             }
-
             return array;
         }
 

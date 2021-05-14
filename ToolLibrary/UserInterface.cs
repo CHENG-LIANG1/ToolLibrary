@@ -9,16 +9,45 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class UserInterface
     {
+        // these are used to keep the staff signed in, they are set to empty string when staff goes back to main menu
         static string staffName = "";
         static string staffPin = "";
+
+        // these are used to keep the member signed in, they are set to empty string when member goes back to main menu
         static string memberFirstName = "";
         static string memberLastName = "";
         static string pin = "";
-        static int validMemberNum = 0;
         static Member loggedInMember;
-        public static string currentlySelectedToolType = "";
-        static bool toolHasSameName = false;
 
+        static int validMemberNum = 0; 
+
+        static string currentlySelectedToolType = "";
+
+        static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
+
+
+        public static string GetCurrentlySelectedToolType() {
+            return currentlySelectedToolType;
+        }
+
+        public static ToolCollection GetDisplayedTools(ToolLibrarySystem toolSystem , string aToolType) {
+            ToolCollection[] toolCollections = toolSystem.ToolCollections;
+            ToolCollection displayedTools = new ToolCollection("Displayed Tools");
+            for (int i = 0; i < toolCollections.Length; i++)
+            {
+                if (toolCollections[i].Name == aToolType)
+                {
+                    for (int j = 0; j < toolCollections[i].Number; j++)
+                    {
+                        Tool tool = toolCollections[i].toArray()[j];
+                        displayedTools.add(tool);
+                    }
+                    break;
+                }
+            }
+
+            return displayedTools;
+        }
 
         public static string DisplayMainMenu()
         {
@@ -897,7 +926,8 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Staff");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
-                ToolCollection displayedTools = system.displayTools(toolType);
+                system.displayTools(toolType);
+                ToolCollection displayedTools = GetDisplayedTools(system,toolType);
                 Console.Write("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
@@ -939,7 +969,8 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Staff");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
-                ToolCollection displayedTools = system.displayTools(toolType);
+                system.displayTools(toolType);
+                ToolCollection displayedTools = GetDisplayedTools(system, toolType);
                 Console.WriteLine("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
@@ -1082,8 +1113,8 @@ namespace ToolLibrary
                 string categoryChoice = DisplayAndGetCategories("Member");
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "2");
                 Console.Clear();
-                ToolCollection displayedTools = system.displayTools(toolType);
-
+                system.displayTools(toolType);
+                ToolCollection displayedTools = GetDisplayedTools(system, toolType);
                 Console.Write("\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
@@ -1150,7 +1181,9 @@ namespace ToolLibrary
             else if (memberChoice == "5")
             {
                 Console.Clear();
+                Console.WriteLine("===============Top 3 Borrowed Tools===============");
                 system.displayTopThree();
+                Console.WriteLine("==================================================");
                 Console.Write("\nPress any key to continue.");
                 Console.ReadKey();
             }

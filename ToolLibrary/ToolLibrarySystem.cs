@@ -12,7 +12,7 @@ namespace ToolLibrary
         // private fields
         private MemberCollection members;
         private ToolCollection[] toolCollections;
-        private ToolCollection allTools;
+        private List<Tool> allTools;
 
         // properties
         public ToolCollection[] ToolCollections { get { return toolCollections; } set { toolCollections = value; } }
@@ -21,26 +21,14 @@ namespace ToolLibrary
         // constructor
         public ToolLibrarySystem() {
             members = new MemberCollection();
-            allTools= new ToolCollection("All the tools");                                                      
+            allTools = new List<Tool>();                                                 
         }
 
         public void add(Tool aTool)
         {
             for (int i = 0; i < toolCollections.Length; i++) {
-                if (toolCollections[i].Name == UserInterface.currentlySelectedToolType) {
+                if (toolCollections[i].Name == UserInterface.GetCurrentlySelectedToolType()) {
                     toolCollections[i].add(aTool);
-                }
-            }
-        }
-
-        // private method to put all tools in an array
-        private void putAllToolsInToArray()
-        {
-            for (int i = 0; i < toolCollections.Length; i++)
-            {
-                for (int j = 0; j < toolCollections[i].toArray().Length; j++)
-                {
-                    allTools.add(toolCollections[i].toArray()[j]);
                 }
             }
         }
@@ -86,7 +74,13 @@ namespace ToolLibrary
 
         public void delete(Tool aTool)
         {
-            allTools.delete(aTool);
+            for (int i = 0; i < toolCollections.Length; i++) {
+                for (int j = 0; j < toolCollections[i].toArray().Length; j++) {
+                    if (aTool.Name == toolCollections[i].toArray()[j].Name) {
+                        toolCollections[i].delete(aTool);
+                    }
+                }
+            }
         }
 
         public void delete(Tool aTool, int quantity) // the situation 'quantity > available quantity' has been handled in UserInterface class
@@ -113,10 +107,8 @@ namespace ToolLibrary
 
         }
 
-
-        public ToolCollection displayTools(string aToolType)
+        public void displayTools(string aToolType)
         {
-            ToolCollection displayedTools = new ToolCollection("Displayed Tools");
             string header = "===============================" + aToolType + "==============================";
             Console.WriteLine(header);
             Console.WriteLine("   {0, -25}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
@@ -124,8 +116,7 @@ namespace ToolLibrary
                 if (toolCollections[i].Name == aToolType) {
                     for (int j = 0; j < toolCollections[i].Number; j++) {
                         Tool tool = toolCollections[i].toArray()[j];
-                        displayedTools.add(tool);
-                        Console.WriteLine(j + 1 +  ". {0, -25}{1, -14}{2, -10}{3, -10}", tool.Name, tool.AvailableQuantity, tool.Quantity, tool.NoBorrowings);
+                        Console.WriteLine(j + 1 +  ". " + tool.ToString());
                     }
                     break;
                 }
@@ -135,47 +126,47 @@ namespace ToolLibrary
                 Console.Write("=");
             }
             Console.WriteLine();
-
-            return displayedTools;
         }
 
-     
-
-        private Tool findMaxBorrowing(Tool[] tools) {
-            int numOfBoroowings = -1;
-            Tool topTool = null;
-            for (int i = 0; i < tools.Length; i++)
+        // private method to put all tools in an array
+        private void putAllToolsInToList()
+        {
+            for (int i = 0; i < toolCollections.Length; i++)
             {
-                if (tools[i] != null && tools[i].NoBorrowings > numOfBoroowings) {
-                    numOfBoroowings = tools[i].NoBorrowings;
-                    topTool = tools[i];
-                }
-            }
-
-            for (int i = 0; i < tools.Length; i++)
-            {
-                if (tools[i] != null && tools[i].Name == topTool.Name)
+                for (int j = 0; j < toolCollections[i].toArray().Length; j++)
                 {
-                    tools[i] = null;
+                    allTools.Add(toolCollections[i].toArray()[j]);
                 }
             }
-
-            return topTool;
         }
 
 
         public void displayTopThree()
         {
-            putAllToolsInToArray();
-            Console.WriteLine("===============Top 3 Borrowed Tools===============");
+            putAllToolsInToList();
+
             for (int i = 0; i < 3; i++) {
-                Tool topBorrowedTool = findMaxBorrowing(allTools.toArray());
+
+                int numOfBoroowings = 0;
+                Tool topBorrowedTool = null;
+
+                for (int j = 0; j < allTools.Count; j++)
+                {
+                    if (allTools[i] != null && allTools[i].NoBorrowings > numOfBoroowings)
+                    {
+                        numOfBoroowings = allTools[i].NoBorrowings;
+                        topBorrowedTool = allTools[i];
+                    }
+                }
+                allTools.Remove(topBorrowedTool);
+
+
                 if (topBorrowedTool != null)
                 {
                     Console.WriteLine(i + 1  + ". {0, -25}  Total Borrowings: {1, -20}", topBorrowedTool.Name, topBorrowedTool.NoBorrowings);
                 }       
             }
-            Console.WriteLine("==================================================");
+
         }
 
         public string[] listTools(Member aMember)

@@ -43,5 +43,10 @@ namespace ToolLibrary
             toolBorrowers.delete(member);
             availableQuantity++;
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0, -25}{1, -14}{2, -10}{3, -10}", name, availableQuantity, quantity, noBorrowings);
+        }
     }
 }

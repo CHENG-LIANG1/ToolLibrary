@@ -41,7 +41,7 @@ namespace ToolLibrary
 
         void deleteBorrower(Member aMember); //delte a member from the borrower list
 
-         string ToString(); //return a string containning the name and the available quantity quantity this tool 
+        string ToString(); //return a string containning the name and the available quantity quantity this tool 
 
     }
 

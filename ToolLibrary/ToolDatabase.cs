@@ -6,8 +6,6 @@ namespace ToolLibrary
 {
     class ToolDatabase
     {
-
-
         // Author:    Cheng Liang
         // Studen ID: N10346911
         public static ToolLibrarySystem GetToolDatabase() {
@@ -62,11 +60,6 @@ namespace ToolLibrary
             ToolCollection socketTools = new ToolCollection("Socket Tools");
             ToolCollection braking = new ToolCollection("Braking");
             ToolCollection driveTrain = new ToolCollection("Drivetrain");
-
-
-
-
-            
 
 
             ToolLibrarySystem toolSystem = new ToolLibrarySystem();
@@ -124,8 +117,6 @@ namespace ToolLibrary
             socketTools,
             braking,
             driveTrain
-
-
         };
             ToolCollection[] allToolCollections = toolSystem.ToolCollections;
 
