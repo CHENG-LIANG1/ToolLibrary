@@ -14,14 +14,11 @@ namespace ToolLibrary
         private ToolCollection[] toolCollections;
         private List<Tool> allTools;
 
-        // properties
-        public ToolCollection[] ToolCollections { get { return toolCollections; } set { toolCollections = value; } }
-        public MemberCollection Members { get { return members; }  set { members = value; } }
 
         // constructor
         public ToolLibrarySystem() {
-            members = new MemberCollection();
-            allTools = new List<Tool>();                                                 
+            toolCollections = Program.GetToolCollections();
+            members = UserInterface.GetMemberCollection();                                               
         }
 
         public void add(Tool aTool)

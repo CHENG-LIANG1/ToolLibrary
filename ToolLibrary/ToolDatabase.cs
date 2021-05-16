@@ -4,11 +4,15 @@ using System.Text;
 
 namespace ToolLibrary
 {
+    // Author:    Cheng Liang
+    // Studen ID: N10346911
     class ToolDatabase
     {
-        // Author:    Cheng Liang
-        // Studen ID: N10346911
-        public static ToolLibrarySystem GetToolDatabase() {
+
+
+
+        public static ToolCollection[] GetToolDatabase() {
+
 
             ToolCollection lineTrimmers = new ToolCollection("Line Trimmers");
             ToolCollection lawnMowers = new ToolCollection("Lawn Mowers");
@@ -62,11 +66,9 @@ namespace ToolLibrary
             ToolCollection driveTrain = new ToolCollection("Drivetrain");
 
 
-            ToolLibrarySystem toolSystem = new ToolLibrarySystem();
 
-            toolSystem.Members = new MemberCollection();
 
-            toolSystem.ToolCollections = new ToolCollection[] {
+            ToolCollection[] allToolCollections = new ToolCollection[] {
             lineTrimmers,
             lawnMowers,
             gardenHandTools,
@@ -117,8 +119,8 @@ namespace ToolLibrary
             socketTools,
             braking,
             driveTrain
-        };
-            ToolCollection[] allToolCollections = toolSystem.ToolCollections;
+            };
+
 
             for (int i = 0; i < allToolCollections.Length; i++) {
 
@@ -126,7 +128,8 @@ namespace ToolLibrary
                 allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 2"));
 
             }
-            return toolSystem;
+
+            return allToolCollections;
 
 
 

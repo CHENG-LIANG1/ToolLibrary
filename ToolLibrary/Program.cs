@@ -7,10 +7,17 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class Program
     {
-     
+
+
+        public static ToolCollection[] GetToolCollections() {
+
+            return ToolDatabase.GetToolDatabase();
+
+        }
+
         static void Main(string[] args)
         {
-            ToolLibrarySystem toolSystem = ToolDatabase.GetToolDatabase();
+            ToolLibrarySystem toolSystem = new ToolLibrarySystem();
             string mainMenuChoice = UserInterface.DisplayMainMenu();
 
 

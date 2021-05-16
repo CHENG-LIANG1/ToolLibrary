@@ -25,13 +25,24 @@ namespace ToolLibrary
 
         static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
 
+        static ToolCollection[] allToolCollections =ToolDatabase.GetToolDatabase();
+
+        static MemberCollection members = new MemberCollection();
 
         public static string GetCurrentlySelectedToolType() {
             return currentlySelectedToolType;
         }
 
+        public static ToolCollection[] GetAllToolCollections() {
+
+            return allToolCollections;
+        }
+
+        public static MemberCollection GetMemberCollection() {
+            return members;
+        }
         public static ToolCollection GetDisplayedTools(ToolLibrarySystem toolSystem , string aToolType) {
-            ToolCollection[] toolCollections = toolSystem.ToolCollections;
+            ToolCollection[] toolCollections = allToolCollections;
             ToolCollection displayedTools = new ToolCollection("Displayed Tools");
             for (int i = 0; i < toolCollections.Length; i++)
             {
@@ -74,7 +85,7 @@ namespace ToolLibrary
                 pin = Console.ReadLine();
             }
 
-            Member[] memberArray = toolSystem.Members.toArray();
+            Member[] memberArray = members.toArray();
 
             for (int i = 0; i < memberArray.Length; i++)
             {
@@ -125,9 +136,9 @@ namespace ToolLibrary
 
             Console.WriteLine("   {0, -15}{1, -15}{2, 15}", "First Name", "Last Name", "Contact Number");
 
-            if (system.Members != null)
+            if (members != null)
             {
-                Member[] memberArray = system.Members.toArray();
+                Member[] memberArray = members.toArray();
 
                 for (int i = 0; i < memberArray.Length; i++)
                 {
@@ -672,9 +683,9 @@ namespace ToolLibrary
 
             Tool tool = new Tool(toolName);
             ToolCollection toolsInTheToolType = null;
-            for (int i = 0; i < toolSystem.ToolCollections.Length; i++) {
-                if (toolType == toolSystem.ToolCollections[i].Name) {
-                    toolsInTheToolType = toolSystem.ToolCollections[i];
+            for (int i = 0; i < allToolCollections.Length; i++) {
+                if (toolType == allToolCollections[i].Name) {
+                    toolsInTheToolType = allToolCollections[i];
                 }
             }
 
@@ -1044,7 +1055,7 @@ namespace ToolLibrary
                     ProcessMainMenu("1", system);
                 }
 
-                Member memberToDelete = system.Members.toArray()[indexChoice - 1];
+                Member memberToDelete = members.toArray()[indexChoice - 1];
                 system.delete(memberToDelete);
 
 
@@ -1063,7 +1074,7 @@ namespace ToolLibrary
                 string lastName = Console.ReadLine();
                 bool foundMember = false;
 
-                Member[] memberArray = system.Members.toArray();
+                Member[] memberArray = members.toArray();
                 for (int i = 0; i < memberArray.Length; i++)
                 {
 
