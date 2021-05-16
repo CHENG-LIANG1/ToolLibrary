@@ -17,7 +17,8 @@ namespace ToolLibrary
 
         // constructor
         public ToolLibrarySystem() {
-            toolCollections = Program.GetToolCollections();
+            allTools = new List<Tool>();
+            toolCollections = UserInterface.GetAllToolCollections();
             members = UserInterface.GetMemberCollection();                                               
         }
 

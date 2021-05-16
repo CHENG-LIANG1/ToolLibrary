@@ -9,12 +9,6 @@ namespace ToolLibrary
     {
 
 
-        public static ToolCollection[] GetToolCollections() {
-
-            return ToolDatabase.GetToolDatabase();
-
-        }
-
         static void Main(string[] args)
         {
             ToolLibrarySystem toolSystem = new ToolLibrarySystem();
