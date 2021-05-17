@@ -176,14 +176,18 @@ namespace ToolLibrary
         {
             aMember.deleteTool(aTool);
             aTool.deleteBorrower(aMember);
+            Console.ReadKey();
         }
 
         public void displayBorrowingTools(Member aMember)
         {
             Console.WriteLine("===============Borrowed Tools===============");
-            for (int i = 0; i < aMember.Tools.Length; i++)
+            if (aMember.Tools != null)
             {
-                Console.WriteLine(i + 1 + ". " + aMember.Tools[i]);
+                for (int i = 0; i < aMember.Tools.Length; i++)
+                {
+                    Console.WriteLine(i + 1 + ". " + aMember.Tools[i]);
+                }
             }
             Console.WriteLine("============================================");
         }

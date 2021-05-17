@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 namespace ToolLibrary
 {
     // Author:    Cheng Liang
@@ -39,11 +39,27 @@ namespace ToolLibrary
         // private method to resize the array after addition and deletion
         private Tool[] resizeArray(Tool[] toolArray) {
             Tool[] array = new Tool[number];
-            for (int i = 0; i < toolArray.Length; i++) {
-                if (toolArray[i] != null) {
+            List<Tool> temp = new List<Tool>();
+
+            if (number > toolArray.Length) // Add a tool
+            {
+                for (int i = 0; i < toolArray.Length; i++)
+                {
                     array[i] = toolArray[i];
+
                 }
             }
+            else { // delete a tool
+                foreach (Tool tool in toolArray) {
+                    if (tool != null) {
+                        temp.Add(tool);
+                    }
+                }
+                array = temp.ToArray();
+            }
+
+
+
             return array;
         }
 

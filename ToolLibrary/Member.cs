@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 namespace ToolLibrary
 {
     // Author:    Cheng Liang
@@ -23,7 +23,7 @@ namespace ToolLibrary
         public string ContactNumber { get { return contactNumber; } set { contactNumber = value; } }
         public string PIN { get { return pin; } set { pin = value; } }
         public string[] Tools { get {
-
+                toolNames = new string[numOfBorrowingTools];
                 for (int i = 0; i < borrowedTools.toArray().Length; i++) {
                     if (borrowedTools.toArray()[i] != null)
                     {
@@ -38,6 +38,7 @@ namespace ToolLibrary
         // constructor
         public Member(string firstName, string lastName, string phoneNum, string pin) {
             borrowedTools = new ToolCollection("Borrowed Tools");
+
             this.FirstName = firstName;
             this.LastName = lastName;
             this.ContactNumber = phoneNum;
@@ -46,23 +47,37 @@ namespace ToolLibrary
 
 
         // private method to resize the array after addition and deletion
-        private void resizeArray()
+        private string[] resizeArray(string[] toolNamesArray)
         {
-            toolNames= new string[numOfBorrowingTools];
+            string[] resultArray = new string[numOfBorrowingTools];
+
+            if (numOfBorrowingTools > toolNamesArray.Length)
+            {
+                for (int i = 0; i < toolNamesArray.Length; i++)
+                {
+                    toolNames[i] = toolNamesArray[i];
+                }
+            }
+            else {
+                resultArray = resultArray.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            }
+
+            
+            return resultArray;
         }
 
         public void addTool(Tool aTool)
         {
-            borrowedTools.add(aTool);
             numOfBorrowingTools++;
-            resizeArray();
+            toolNames = resizeArray(toolNames);
+            borrowedTools.add(aTool);
         }
 
         public void deleteTool(Tool aTool)
         {
-            borrowedTools.delete(aTool);
             numOfBorrowingTools--;
-            resizeArray();
+            toolNames = resizeArray(toolNames);
+            borrowedTools.delete(aTool);
         }
 
         override public string ToString()

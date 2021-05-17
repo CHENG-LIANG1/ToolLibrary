@@ -19,15 +19,29 @@ namespace ToolLibrary
         static string pin = "";
         static Member loggedInMember;
 
-        static int validMemberNum = 0; 
+        static int validMemberNum = 0;
 
         static string currentlySelectedToolType = "";
 
         static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
 
-        static ToolCollection[] allToolCollections =ToolDatabase.GetToolDatabase();
+        static ToolCollection[] allToolCollections = ToolDatabase.GetToolDatabase();
 
         static MemberCollection members = new MemberCollection();
+
+        public static int[] GetAToolByToolName(string toolName) {
+            for (int i = 0; i < allToolCollections.Length; i++) {
+                for (int j = 0; j < allToolCollections[i].toArray().Length; j++) {
+                    if(allToolCollections[i].toArray()[j].Name == toolName)
+                    {
+
+                        return new int[] { i, j };
+                    }
+                }
+            }
+
+            return null;
+        }
 
         public static string GetCurrentlySelectedToolType() {
             return currentlySelectedToolType;
@@ -41,7 +55,7 @@ namespace ToolLibrary
         public static MemberCollection GetMemberCollection() {
             return members;
         }
-        public static ToolCollection GetDisplayedTools(ToolLibrarySystem toolSystem , string aToolType) {
+        public static ToolCollection GetDisplayedTools(string aToolType) {
             ToolCollection[] toolCollections = allToolCollections;
             ToolCollection displayedTools = new ToolCollection("Displayed Tools");
             for (int i = 0; i < toolCollections.Length; i++)
@@ -938,13 +952,13 @@ namespace ToolLibrary
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
                 system.displayTools(toolType);
-                ToolCollection displayedTools = GetDisplayedTools(system,toolType);
+                ToolCollection displayedTools = GetDisplayedTools(toolType);
                 Console.Write("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice <= 0)
                 {
                     Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
@@ -981,13 +995,13 @@ namespace ToolLibrary
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "1");
                 Console.Clear();
                 system.displayTools(toolType);
-                ToolCollection displayedTools = GetDisplayedTools(system, toolType);
+                ToolCollection displayedTools = GetDisplayedTools(toolType);
                 Console.WriteLine("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice <= 0)
                 {
                     Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
@@ -1044,7 +1058,7 @@ namespace ToolLibrary
                 int indexChoice;
                 string choiceString = Console.ReadLine();
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice < 0 || indexChoice > validMemberNum)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice <= 0 || indexChoice > validMemberNum)
                 {
                     Console.WriteLine("Wrong input! Please make a selection from the member IDs above: ");
                     choiceString = Console.ReadLine();
@@ -1125,13 +1139,13 @@ namespace ToolLibrary
                 string toolType = DisplayAndGetTooType(categoryChoice, system, "2");
                 Console.Clear();
                 system.displayTools(toolType);
-                ToolCollection displayedTools = GetDisplayedTools(system, toolType);
+                ToolCollection displayedTools = GetDisplayedTools(toolType);
                 Console.Write("\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice < 0)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice <= 0)
                 {
                     Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
@@ -1157,19 +1171,27 @@ namespace ToolLibrary
                 Console.Clear();
                 system.displayBorrowingTools(loggedInMember);
 
-                Console.Write("Please make a selection from the tools above: ");
+                Console.Write("Please make a selection from the tools above or press 0 return to Member menu: ");
 
                 string choiceString = Console.ReadLine();
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice > borrowedTools.Length)
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice <= 0 || indexChoice > borrowedTools.Length )
                 {
-                    Console.Write("Wrong input! Please make a selection from the tools above: ");
-                    choiceString = Console.ReadLine();
+                    if (indexChoice != 0)
+                    {
+                        Console.Write("Wrong input! Please make a selection from the tools above or press 0 return to Member menu: ");
+                        choiceString = Console.ReadLine();
+                    }
+                    else {
+                        ProcessMainMenu("2", system);
+
+                    }
                 }
 
                 string toolToReturnName = system.listTools(loggedInMember)[indexChoice - 1];
-                Tool toolToReturn = new Tool(toolToReturnName);
+                int[] location = GetAToolByToolName(toolToReturnName);
+                Tool toolToReturn = allToolCollections[location[0]].toArray()[location[1]];
 
                 system.returnTool(loggedInMember, toolToReturn);
 
