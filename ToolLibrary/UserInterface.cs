@@ -14,8 +14,8 @@ namespace ToolLibrary
         static string staffPin = "";
 
         // these are used to keep the member signed in, they are set to empty string when member goes back to main menu
-        static string memberFirstName = "";
-        static string memberLastName = "";
+        static string memberName = "";
+
         static string pin = "";
         static Member loggedInMember;
 
@@ -89,12 +89,10 @@ namespace ToolLibrary
             Console.Clear();
 
 
-            if (memberFirstName == "" && memberLastName == "")
+            if (memberName == "")
             {
-                Console.Write("Please enter your first name:   ");
-                memberFirstName = Console.ReadLine();
-                Console.Write("Please enter your last name:    ");
-                memberLastName = Console.ReadLine();
+                Console.Write("Please enter your last name and first name(LastnameFirstname):");
+                memberName = Console.ReadLine();
                 Console.Write("Please enter password(4 digits): ");
                 pin = Console.ReadLine();
             }
@@ -104,10 +102,9 @@ namespace ToolLibrary
             for (int i = 0; i < memberArray.Length; i++)
             {
                 if (memberArray[i] != null &&
-                    memberArray[i].LastName.ToLower() == memberLastName.ToLower() && memberArray[i].FirstName.ToLower() == memberFirstName.ToLower() && memberArray[i].PIN == pin)
+                    (memberArray[i].LastName + memberArray[i].FirstName) == memberName && memberArray[i].PIN == pin)
                 {
-                    memberFirstName = memberArray[i].FirstName;
-                    memberLastName = memberArray[i].LastName;
+                    memberName = memberArray[i].LastName + memberArray[i].FirstName;
                     pin = memberArray[i].PIN;
                     loggedInMember = memberArray[i];
                     return true;
@@ -722,11 +719,22 @@ namespace ToolLibrary
         public static Member CreateMember() {
             Console.Write("\nPlease enter first name:         ");
             string firstName = Console.ReadLine();
-            Console.Write("Please enter last name:          ");
+
+            while (!Char.IsUpper(firstName[0])) {
+                Console.Write("\nThe first letter needs to be capitalised, please try again: ");
+                firstName = Console.ReadLine();
+            }
+
+            Console.Write("\nPlease enter last name:         ");
             string lastName = Console.ReadLine();
 
-            Console.Write("Please enter contact number:     ");
+            while (!Char.IsUpper(lastName[0]))
+            {
+                Console.Write("\nThe first letter needs to be capitalised, please try again: ");
+                lastName = Console.ReadLine();
+            }
 
+            Console.Write("\nPlease enter contact number:     ");
 
             string number = Console.ReadLine();
             while (!long.TryParse(number, out _))
@@ -855,11 +863,11 @@ namespace ToolLibrary
                     while (!LoginAMember(toolSystem))
                     {
                         Console.Clear();
-                        Console.WriteLine("Wrong member name or pin! Please try again!");
+                        Console.WriteLine("Wrong member name or pin! Please use the format LastnameFirstname to log in!");
                         Console.WriteLine("\nEnter 0 to return to Main menu or ");
                         Console.Write("press any other key to try again: ");
-                        memberFirstName = "";
-                        memberLastName = "";
+
+                        memberName = "";
                         string choice = Console.ReadLine();
                         while (choice == "0")
                         {
@@ -880,8 +888,7 @@ namespace ToolLibrary
                     else
                     {
 
-                        memberFirstName = "";
-                        memberLastName = "";
+                        memberName = "";
                         ReturnToMainMenu(toolSystem);
                     }
 
@@ -1221,7 +1228,7 @@ namespace ToolLibrary
                 Console.ReadKey();
             }
             else {
-                memberFirstName = "";
+                memberName = "";
                 ReturnToMainMenu(system);
             }
 

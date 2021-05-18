@@ -31,19 +31,23 @@ namespace ToolLibrary
                     }
                 }
                 return toolNames;
-            } 
+            }
+            
         }
+        
 
 
         // constructor
         public Member(string firstName, string lastName, string phoneNum, string pin) {
             borrowedTools = new ToolCollection("Borrowed Tools");
-
             this.FirstName = firstName;
             this.LastName = lastName;
             this.ContactNumber = phoneNum;
             this.PIN = pin;
+         
         }
+
+        
 
 
         // private method to resize the array after addition and deletion
