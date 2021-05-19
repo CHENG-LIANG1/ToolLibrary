@@ -122,7 +122,7 @@ namespace ToolLibrary
 
             if (memberName == "")
             {
-                Console.Write("Please enter your last name and first name(LastnameFirstname):");
+                Console.Write("Please enter your last name and first name(LastnameFirstname): ");
                 memberName = Console.ReadLine();
                 Console.Write("Please enter password(4 digits): ");
                 pin = Console.ReadLine();
