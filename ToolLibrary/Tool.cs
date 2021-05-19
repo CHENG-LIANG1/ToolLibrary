@@ -26,6 +26,10 @@ namespace ToolLibrary
             this.name = name;
         }
 
+        /// <summary>
+        /// add a borrower to tool's borrowing member collection
+        /// </summary>
+        /// <param name="member"> member who borrows this tool </param>
         public void addBorrower(Member member)
         {
             if (availableQuantity > 0)
@@ -36,12 +40,21 @@ namespace ToolLibrary
             }
         }
 
+        /// <summary>
+        /// delete a borrower to tool's borrowing member collection
+        /// </summary>
+        /// <param name="member"> member who returns this tool </param>
         public void deleteBorrower(Member member)
         {
             toolBorrowers.delete(member);
             availableQuantity++;
         }
 
+
+        /// <summary>
+        /// format the output of a Tool object
+        /// </summary>
+        /// <returns> the formatted output </returns>
         public override string ToString()
         {
             return String.Format("{0, -25}{1, -14}{2, -10}{3, -10}", name, availableQuantity, quantity, noBorrowings);

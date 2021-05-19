@@ -21,6 +21,10 @@ namespace ToolLibrary
 			root = null;
 		}
 
+		/// <summary>
+        /// Add a member to the member collection
+        /// </summary>
+        /// <param name="member"></param>
 		public void add(Member member)
 		{
 			number++;
@@ -30,6 +34,11 @@ namespace ToolLibrary
 				add(member, root);
 		}
 
+		/// <summary>
+        /// Add a member to a binary serach tree
+        /// </summary>
+        /// <param name="aMember"> member to add </param>
+        /// <param name="ptr"> a binary serach tree node </param>
 		private void add(Member aMember, BTreeNode ptr)
 		{
 			if (aMember.CompareTo(ptr.Member) < 0)
@@ -52,7 +61,10 @@ namespace ToolLibrary
 			}
 		}
 
-
+		/// <summary>
+        /// Delete a member from the mamber collection
+        /// </summary>
+        /// <param name="aMember"> member to delete </param>
 		public void delete(Member aMember)
 		{
 			// search for item and its parent
@@ -116,6 +128,12 @@ namespace ToolLibrary
 			}
 		}
 
+
+		/// <summary>
+        /// search for a member in the member collection
+        /// </summary>
+        /// <param name="aMember"> member to search</param>
+        /// <returns></returns>
 		public bool search(Member aMember)
 		{
 			return Search(aMember, root);
@@ -140,7 +158,12 @@ namespace ToolLibrary
 
 
 		Member[] memberArray = new Member[500]; // initialise an array with a resonable community size of 500 people
-		int index = 0;
+		int index = 0; // initialse the iterator with 0
+
+		/// <summary>
+        /// convert a BST into an array
+        /// </summary>
+        /// <returns> a Member array </returns>
 		public Member[] toArray()
 		{
 			memberArray = new Member[500]; // reset the array for a new BST traversal
@@ -150,6 +173,11 @@ namespace ToolLibrary
 		}
 
 
+		/// <summary>
+        /// inorder traverse a BST
+        /// </summary>
+        /// <param name="root"> the root node of the BST </param>
+        /// <returns> a member array </returns>
 		private Member[] InOrderTraverse(BTreeNode root)
 		{
 
@@ -162,11 +190,6 @@ namespace ToolLibrary
 
 			return memberArray;
 		}
-
-
-
-
-
 
 	}
 }

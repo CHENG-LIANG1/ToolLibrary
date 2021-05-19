@@ -22,6 +22,11 @@ namespace ToolLibrary
             members = UserInterface.GetMemberCollection();                                               
         }
 
+
+        /// <summary>
+        /// add a tool to the system
+        /// </summary>
+        /// <param name="aTool"> tool to add </param>
         public void add(Tool aTool)
         {
             for (int i = 0; i < toolCollections.Length; i++) {
@@ -31,18 +36,32 @@ namespace ToolLibrary
             }
         }
 
-
+        /// <summary>
+        /// add some pieces of an existing tool to the sysyem
+        /// </summary>
+        /// <param name="aTool"> tool to add</param>
+        /// <param name="quantity"></param>
         public void add(Tool aTool, int quantity)
         {
             aTool.Quantity += quantity;
             aTool.AvailableQuantity += quantity;
         }
 
+        /// <summary>
+        /// add a member to the system
+        /// </summary>
+        /// <param name="aMember"> member to add </param>
         public void add(Member aMember)
         {
             members.add(aMember);
         }
 
+        /// <summary>
+        /// a member borrows a tool from the system
+        /// </summary>
+        /// <param name="aMember"> member who borrows a tool </param>
+        /// <param name="aTool"> tool gets borrowed </param>
+        /// <returns></returns>
         public bool borrowTool(Member aMember, Tool aTool)
         {
             if (aTool.AvailableQuantity > 0)
@@ -70,6 +89,10 @@ namespace ToolLibrary
             return false;
         }
 
+        /// <summary>
+        /// delete a tool from the system
+        /// </summary>
+        /// <param name="aTool"> tool to delete </param>
         public void delete(Tool aTool)
         {
             for (int i = 0; i < toolCollections.Length; i++) {
@@ -81,6 +104,11 @@ namespace ToolLibrary
             }
         }
 
+        /// <summary>
+        /// delete some pieces of an existing tool from the system
+        /// </summary>
+        /// <param name="aTool"></param>
+        /// <param name="quantity"></param>
         public void delete(Tool aTool, int quantity) // the situation 'quantity > available quantity' has been handled in UserInterface class
                                                      // so the avaiable quantity is always greater than the quantity to delete in this block of code
         {
@@ -88,6 +116,10 @@ namespace ToolLibrary
              aTool.Quantity -= quantity;
         }
 
+        /// <summary>
+        /// delete a member from the system
+        /// </summary>
+        /// <param name="member"> member to delete </param>
         public void delete(Member member)
         {
             if (member.Tools != null && member.Tools.Length > 0)
@@ -105,6 +137,10 @@ namespace ToolLibrary
 
         }
 
+        /// <summary>
+        /// display the tools in a given tool type
+        /// </summary>
+        /// <param name="aToolType"> a tool type </param>
         public void displayTools(string aToolType)
         {
             string header = "===============================" + aToolType + "==============================";
@@ -126,9 +162,12 @@ namespace ToolLibrary
             Console.WriteLine();
         }
 
-        // private method to put all tools in an array
-        private void putAllToolsInToList()
+        /// <summary>
+        /// display the top three borrowed tools
+        /// </summary>
+        public void displayTopThree()
         {
+            // add all the tools to a list
             for (int i = 0; i < toolCollections.Length; i++)
             {
                 for (int j = 0; j < toolCollections[i].toArray().Length; j++)
@@ -136,18 +175,13 @@ namespace ToolLibrary
                     allTools.Add(toolCollections[i].toArray()[j]);
                 }
             }
-        }
-
-
-        public void displayTopThree()
-        {
-            putAllToolsInToList();
 
             for (int i = 0; i < 3; i++) {
 
                 int numOfBoroowings = 0;
                 Tool topBorrowedTool = null;
 
+                // find the tool which has maximum number of borrowings
                 for (int j = 0; j < allTools.Count; j++)
                 {
                     if (allTools[i] != null && allTools[i].NoBorrowings > numOfBoroowings)
@@ -156,7 +190,7 @@ namespace ToolLibrary
                         topBorrowedTool = allTools[i];
                     }
                 }
-                allTools.Remove(topBorrowedTool);
+                allTools.Remove(topBorrowedTool); // remove the top tool so that it looks for the top borrowing tool in the remaining list
 
 
                 if (topBorrowedTool != null)
@@ -167,18 +201,31 @@ namespace ToolLibrary
 
         }
 
+        /// <summary>
+        /// get an array of tools a member is currently borrowing
+        /// </summary>
+        /// <param name="aMember"> a member </param>
+        /// <returns> a string array of tool names </returns>
         public string[] listTools(Member aMember)
         {
             return aMember.Tools;
         }
 
+        /// <summary>
+        /// a member returns a tool
+        /// </summary>
+        /// <param name="aMember"> a member who returns a tool </param>
+        /// <param name="aTool"> tool to return </param>
         public void returnTool(Member aMember, Tool aTool)
         {
             aMember.deleteTool(aTool);
             aTool.deleteBorrower(aMember);
-            Console.ReadKey();
         }
 
+        /// <summary>
+        /// display the tools a member is currently borrwoing
+        /// </summary>
+        /// <param name="aMember"> a member </param>
         public void displayBorrowingTools(Member aMember)
         {
             Console.WriteLine("===============Borrowed Tools===============");

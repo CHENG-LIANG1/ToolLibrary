@@ -11,7 +11,8 @@ namespace ToolLibrary
 
 
 
-        public static ToolCollection[] GetToolDatabase() {
+        public static ToolCollection[] GetToolDatabase()
+        {
 
 
             ToolCollection lineTrimmers = new ToolCollection("Line Trimmers");
@@ -122,7 +123,8 @@ namespace ToolLibrary
             };
 
 
-            for (int i = 0; i < allToolCollections.Length; i++) {
+            for (int i = 0; i < allToolCollections.Length; i++)
+            {
 
                 allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 1"));
                 allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 2"));
@@ -135,7 +137,7 @@ namespace ToolLibrary
 
         }
 
-        
+
 
     }
 }

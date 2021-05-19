@@ -47,10 +47,13 @@ namespace ToolLibrary
          
         }
 
-        
+     
 
-
-        // private method to resize the array after addition and deletion
+        /// <summary>
+        /// private method to resize an array
+        /// </summary>
+        /// <param name="toolNamesArray"> a string array </param>
+        /// <returns></returns>
         private string[] resizeArray(string[] toolNamesArray)
         {
             string[] resultArray = new string[numOfBorrowingTools];
@@ -65,11 +68,14 @@ namespace ToolLibrary
             else {
                 resultArray = resultArray.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             }
-
-            
             return resultArray;
         }
 
+
+        /// <summary>
+        /// Add a tool to the member's borrowing tool collection
+        /// </summary>
+        /// <param name="aTool"> a Tool object</param>
         public void addTool(Tool aTool)
         {
             numOfBorrowingTools++;
@@ -77,6 +83,10 @@ namespace ToolLibrary
             borrowedTools.add(aTool);
         }
 
+        /// <summary>
+        /// Delete a tool from member's boroowing tool collection
+        /// </summary>
+        /// <param name="aTool"> a Tool object</param>
         public void deleteTool(Tool aTool)
         {
             numOfBorrowingTools--;
@@ -84,11 +94,21 @@ namespace ToolLibrary
             borrowedTools.delete(aTool);
         }
 
+        /// <summary>
+        /// format the output of a Member object
+        /// </summary>
+        /// <returns> the formatted output </returns>
         override public string ToString()
         {
             return String.Format("{0, -15}{1, -15} {2, -15}", firstName, lastName, contactNumber);
         }
 
+
+        /// <summary>
+        /// Compare 
+        /// </summary>
+        /// <param name="other"> another Member</param>
+        /// <returns> integer of order </returns>
         public int CompareTo(Member other)
         {
             if (this.LastName.CompareTo(other.LastName) < 0)

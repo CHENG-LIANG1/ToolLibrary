@@ -23,9 +23,11 @@ namespace ToolLibrary
             this.name = name;
         }
 
-        // private method to check if two tools have the same name,
-        // return the index of the tool in the array if found the tool
-        // return -1 if not found
+        /// <summary>
+        /// private method to find the index of a tool in the collection
+        /// </summary>
+        /// <param name="tool"> tool to find </param>
+        /// <returns> index of the tool if found, -1 otherwise </returns>
         private int findToolIndex(Tool tool) {
             for (int i = 0; i < toolCollection.Length; i++) {
                 if (toolCollection[i] != null && toolCollection[i].Name == tool.Name)
@@ -36,7 +38,11 @@ namespace ToolLibrary
             return -1;
         }
 
-        // private method to resize the array after addition and deletion
+        /// <summary>
+        /// private method to resize a tool array
+        /// </summary>
+        /// <param name="toolArray"> the tool array to resize</param>
+        /// <returns> a resized tool array </returns>
         private Tool[] resizeArray(Tool[] toolArray) {
             Tool[] array = new Tool[number];
             List<Tool> temp = new List<Tool>();
@@ -57,12 +63,13 @@ namespace ToolLibrary
                 }
                 array = temp.ToArray();
             }
-
-
-
             return array;
         }
 
+        /// <summary>
+        /// add a tool to the tool collection
+        /// </summary>
+        /// <param name="tool"> tool to add </param>
         public void add(Tool tool)
         {
             number++;
@@ -77,6 +84,10 @@ namespace ToolLibrary
             }
         }
 
+        /// <summary>
+        /// delete a tool from the tool collection
+        /// </summary>
+        /// <param name="tool"> tool to delete </param>
         public void delete(Tool tool)
         {
             int index = findToolIndex(tool);
@@ -87,6 +98,11 @@ namespace ToolLibrary
             }
         }
 
+        /// <summary>
+        /// search for a tool in the tool collection
+        /// </summary>
+        /// <param name="tool"> tool to search </param>
+        /// <returns> true if found, false otherwise </returns>
         public bool search(Tool tool) 
         {
             if (findToolIndex(tool) >= 0) {
@@ -95,6 +111,10 @@ namespace ToolLibrary
             return false;
         }
 
+        /// <summary>
+        /// return the tool array
+        /// </summary>
+        /// <returns> the tool array </returns>
         public Tool[] toArray()
         {
             return toolCollection;
