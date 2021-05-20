@@ -25,11 +25,10 @@ Default staff name: *staff*
 
 Default staff pin:  *today123*
 
-Default member first name: *cheng*
+Default member first name: *Cheng*
 
-Default member last name: *liang*
+Default member last name: *Liang*
 
 Defualt member pin: *1234*
 
-All the names above are case ignored.
 
