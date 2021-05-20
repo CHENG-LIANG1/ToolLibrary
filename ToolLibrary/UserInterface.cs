@@ -19,7 +19,7 @@ namespace ToolLibrary
         static string pin = "";
         static Member loggedInMember;
 
-        static int validMemberNum = 0;
+        static int validMemberNum = 0; // used for validate staff's selection - not exceeding the number of members when selecting a member to delete
 
         static string currentlySelectedToolType = "";
 

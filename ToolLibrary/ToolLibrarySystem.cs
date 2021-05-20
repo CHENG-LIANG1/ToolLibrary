@@ -162,6 +162,7 @@ namespace ToolLibrary
             Console.WriteLine();
         }
 
+
         /// <summary>
         /// display the top three borrowed tools
         /// </summary>
@@ -176,6 +177,7 @@ namespace ToolLibrary
                 }
             }
 
+            // in a for loop of 3
             for (int i = 0; i < 3; i++) {
 
                 int numOfBoroowings = 0;
@@ -192,7 +194,7 @@ namespace ToolLibrary
                 }
                 allTools.Remove(topBorrowedTool); // remove the top tool so that it looks for the top borrowing tool in the remaining list
 
-
+                // display 
                 if (topBorrowedTool != null)
                 {
                     Console.WriteLine(i + 1  + ". {0, -25}  Total Borrowings: {1, -20}", topBorrowedTool.Name, topBorrowedTool.NoBorrowings);

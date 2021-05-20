@@ -13,8 +13,6 @@ namespace ToolLibrary
 
         public static ToolCollection[] GetToolDatabase()
         {
-
-
             ToolCollection lineTrimmers = new ToolCollection("Line Trimmers");
             ToolCollection lawnMowers = new ToolCollection("Lawn Mowers");
             ToolCollection gardenHandTools = new ToolCollection("Garden Hand Tools");
@@ -57,7 +55,7 @@ namespace ToolLibrary
             ToolCollection testEquipment = new ToolCollection("Test Equipment");
             ToolCollection safetyEquipment = new ToolCollection("Safety Equipment");
             ToolCollection basicHandTools = new ToolCollection("Basic Hand Tools");
-            ToolCollection circuitProtection = new ToolCollection("Circuit Protect");
+            ToolCollection circuitProtection = new ToolCollection("Circuit Protection");
             ToolCollection cableTools = new ToolCollection("Cable Tools");
             ToolCollection jacks = new ToolCollection("Jacks");
             ToolCollection airCompressors = new ToolCollection("Air Compressors");
@@ -132,9 +130,6 @@ namespace ToolLibrary
             }
 
             return allToolCollections;
-
-
-
         }
 
 
