@@ -9,36 +9,54 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class UserInterface
     {
+
         // these are used to keep the staff signed in, they are set to empty string when staff goes back to main menu
-        static string staffName = "";
-        static string staffPin = "";
+        private static string staffName = "";
+        private static string staffPin = "";
 
         // these are used to keep the member signed in, they are set to empty string when member goes back to main menu
-        static string memberName = "";
+        private static string memberName = "";
 
-        static string pin = "";
-        static Member loggedInMember;
+        private static string pin = "";
+        private static Member loggedInMember;
 
-        static int validMemberNum = 0; // used for validate staff's selection - not exceeding the number of members when selecting a member to delete
 
-        static string currentlySelectedToolType = "";
+        private static int validMemberNum = 0; // used for validate staff's selection - not exceeding the number of members when selecting a member to delete
 
-        static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
+        private static string currentlySelectedToolType = "";
 
-        static ToolCollection[] allToolCollections = ToolDatabase.GetToolDatabase();
+        private static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
 
-        static MemberCollection members = new MemberCollection();
+        private static ToolCollection[] allToolCollections = ToolDatabase.GetToolDatabase();
 
+        private static MemberCollection members = new MemberCollection();
+
+        public static List<Tool> GetTheToolsList()
+        {
+
+            List<Tool> allTools = new List<Tool>();
+            for (int i = 0; i < allToolCollections.Length; i++)
+            {
+                for (int j = 0; j < allToolCollections[i].toArray().Length; j++)
+                {
+                    allTools.Add(allToolCollections[i].toArray()[j]);
+                }
+            }
+            return allTools;
+        }
 
         /// <summary>
         /// Get the location of a tool by a given tool name
         /// </summary>
         /// <param name="toolName"> a given tool name </param>
         /// <returns> a int array, {1, 1} means first category, first tool type </returns>
-        public static int[] GetAToolByToolName(string toolName) {
-            for (int i = 0; i < allToolCollections.Length; i++) {
-                for (int j = 0; j < allToolCollections[i].toArray().Length; j++) {
-                    if(allToolCollections[i].toArray()[j].Name == toolName)
+        public static int[] GetAToolByToolName(string toolName)
+        {
+            for (int i = 0; i < allToolCollections.Length; i++)
+            {
+                for (int j = 0; j < allToolCollections[i].toArray().Length; j++)
+                {
+                    if (allToolCollections[i].toArray()[j].Name == toolName)
                     {
 
                         return new int[] { i, j };
@@ -53,7 +71,8 @@ namespace ToolLibrary
         /// get the currently selected tool type
         /// </summary>
         /// <returns> a string tool type </returns>
-        public static string GetCurrentlySelectedToolType() {
+        public static string GetCurrentlySelectedToolType()
+        {
             return currentlySelectedToolType;
         }
 
@@ -61,7 +80,8 @@ namespace ToolLibrary
         /// get all tool collections
         /// </summary>
         /// <returns>a tool collection array </returns>
-        public static ToolCollection[] GetAllToolCollections() {
+        public static ToolCollection[] GetAllToolCollections()
+        {
             return allToolCollections;
         }
 
@@ -69,7 +89,8 @@ namespace ToolLibrary
         /// get the member collection
         /// </summary>
         /// <returns> a member collection </returns>
-        public static MemberCollection GetMemberCollection() {
+        public static MemberCollection GetMemberCollection()
+        {
             return members;
         }
 
@@ -78,16 +99,16 @@ namespace ToolLibrary
         /// </summary>
         /// <param name="aToolType"></param>
         /// <returns></returns>
-        public static ToolCollection GetDisplayedTools(string aToolType) {
-            ToolCollection[] toolCollections = allToolCollections;
+        private static ToolCollection GetDisplayedTools(string aToolType)
+        {
             ToolCollection displayedTools = new ToolCollection("Displayed Tools");
-            for (int i = 0; i < toolCollections.Length; i++)
+            for (int i = 0; i < allToolCollections.Length; i++)
             {
-                if (toolCollections[i].Name == aToolType)
+                if (allToolCollections[i].Name == aToolType)
                 {
-                    for (int j = 0; j < toolCollections[i].Number; j++)
+                    for (int j = 0; j < allToolCollections[i].Number; j++)
                     {
-                        Tool tool = toolCollections[i].toArray()[j];
+                        Tool tool = allToolCollections[i].toArray()[j];
                         displayedTools.add(tool);
                     }
                     break;
@@ -116,7 +137,8 @@ namespace ToolLibrary
         /// log a member into the system
         /// </summary>
         /// <returns> true if login is successfull, false other wise</returns>
-        public static bool LoginAMember() {
+        public static bool LoginAMember()
+        {
             Console.Clear();
 
 
@@ -139,7 +161,7 @@ namespace ToolLibrary
                     pin = memberArray[i].PIN;
                     loggedInMember = memberArray[i];
                     return true;
-                }   
+                }
             }
             return false;
         }
@@ -148,7 +170,7 @@ namespace ToolLibrary
         /// <summary>
         /// display the staff menu
         /// </summary>
-        public static void DisplayStaffMenu()
+        private static void DisplayStaffMenu()
         {
             Console.Clear();
             Console.WriteLine("===============Staff Menu===============");
@@ -160,14 +182,14 @@ namespace ToolLibrary
             Console.WriteLine("6. Find the contact number of a member");
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Main menu: ");
+            Console.Write("\n\nPlease make a selection (1-6) or 0 to return to Main menu: ");
 
         }
 
         /// <summary>
         /// display the member menu
         /// </summary>
-        public static void DisplayMemberMenu()
+        private static void DisplayMemberMenu()
         {
             Console.WriteLine("===============Member Menu===============");
             Console.WriteLine("1. Display all the tools of a tool type");
@@ -177,13 +199,13 @@ namespace ToolLibrary
             Console.WriteLine("5. Display top (3) most frequently rented tools");
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Main menu: ");
+            Console.Write("\n\nPlease make a selection (1-5) or 0 to return to Main menu: ");
         }
 
         /// <summary>
         /// display the memebrs
         /// </summary>
-        public static void DisplayMembers()
+        private static void DisplayMembers()
         {
             Console.WriteLine("==========================Members=========================");
 
@@ -212,7 +234,7 @@ namespace ToolLibrary
         /// </summary>
         /// <param name="role"> staff/member </param>
         /// <returns> the selected category </returns>
-        public static string DisplayAndGetCategories(string role)
+        private static string DisplayAndGetCategories(string role)
         {
             Console.Clear();
             Console.WriteLine("=============Tool Categories============");
@@ -225,9 +247,9 @@ namespace ToolLibrary
             Console.WriteLine("7. Electronic tools");
             Console.WriteLine("8. Electricity tools");
             Console.WriteLine("9. Automotive tools");
-            Console.WriteLine("0. Return to Staff menu");
+            Console.WriteLine("0. Return to " + role + " menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-9) or 0 to return to " + role + " menu: ");
+            Console.Write("\n\nPlease make a selection (1-9) or 0 to return to " + role + " menu: ");
             string choice = Console.ReadLine();
             return choice;
 
@@ -240,12 +262,12 @@ namespace ToolLibrary
         /// <param name="system"> the tool library system</param>
         /// <param name="role"> staff/member </param>
         /// <returns> the selected tool type </returns>
-        public static string DisplayAndGetTooType(string choice, ToolLibrarySystem system, string role)
+        private static string DisplayAndGetTooType(string choice, ToolLibrarySystem system, string role)
         {
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6" && choice != "7" && choice != "8" && choice != "9")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-9) or 0 to return to Staff menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-9) or 0 to return to Staff menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -353,7 +375,7 @@ namespace ToolLibrary
         /// display the tool types in gardening tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetGardeningToolTypes()
+        private static string GetGardeningToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Gardening Tools============");
@@ -364,14 +386,14 @@ namespace ToolLibrary
             Console.WriteLine("5. Garden Power Tools");
             Console.WriteLine("0. Return to Category");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
+            Console.Write("\n\nPlease make a selection (1-5) or 0 to return to Category menu: ");
 
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -399,7 +421,7 @@ namespace ToolLibrary
         /// display the tool types in flooring tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetFlooringToolTypes()
+        private static string GetFlooringToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Flooring Tools============");
@@ -411,13 +433,13 @@ namespace ToolLibrary
             Console.WriteLine("6. Tiling Tools");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("=======================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -446,7 +468,7 @@ namespace ToolLibrary
         /// display the tool types in fencing tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetFencingToolTypes()
+        private static string GetFencingToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Fencing Tools============");
@@ -457,14 +479,14 @@ namespace ToolLibrary
             Console.WriteLine("5. Fencing Accessories");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("======================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -491,7 +513,7 @@ namespace ToolLibrary
         /// display the tool types in measuring tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetMeasuringToolTypes()
+        private static string GetMeasuringToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Measuring Tools============");
@@ -503,13 +525,13 @@ namespace ToolLibrary
             Console.WriteLine("6. Markers");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -539,7 +561,7 @@ namespace ToolLibrary
         /// display the tool types in cleaning tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetCleaningToolTypes()
+        private static string GetCleaningToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Cleaning Tools============");
@@ -551,14 +573,14 @@ namespace ToolLibrary
             Console.WriteLine("6. Floor Cleaning");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("=======================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -587,7 +609,7 @@ namespace ToolLibrary
         /// display the tool types in painting tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetPaintingToolTypes()
+        private static string GetPaintingToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Painting Tools============");
@@ -599,13 +621,13 @@ namespace ToolLibrary
             Console.WriteLine("6. Sprayers");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("=======================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -634,7 +656,7 @@ namespace ToolLibrary
         /// display the tool types in electronic tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetElectronicToolTypes()
+        private static string GetElectronicToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Electronic Tools============");
@@ -645,13 +667,13 @@ namespace ToolLibrary
             Console.WriteLine("5. Insulation Testers");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("=========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -679,7 +701,7 @@ namespace ToolLibrary
         /// display the tool types in electricity tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetElectricityToolTypes()
+        private static string GetElectricityToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Electricity Tools============");
@@ -690,14 +712,14 @@ namespace ToolLibrary
             Console.WriteLine("5. Cable Tools");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("==========================================");
-            Console.WriteLine("\n\nPlease make a selection (1-5) or 0 to return to Category menu");
+            Console.Write("\n\nPlease make a selection (1-5) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-5) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -724,7 +746,7 @@ namespace ToolLibrary
         /// display the tool types in automotive tools category and get the selected tool type
         /// </summary>
         /// <returns> the selected tool type</returns>
-        public static string GetAutomotiveToolTypes()
+        private static string GetAutomotiveToolTypes()
         {
             Console.Clear();
             Console.WriteLine("=============Tool Types============");
@@ -736,14 +758,14 @@ namespace ToolLibrary
             Console.WriteLine("6. Drivetrain");
             Console.WriteLine("0. Return to Category menu");
             Console.WriteLine("===================================");
-            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu");
+            Console.WriteLine("\n\nPlease make a selection (1-6) or 0 to return to Category menu: ");
             string choice = Console.ReadLine();
 
 
             while (choice != "0" && choice != "1" && choice != "2" &&
                    choice != "3" && choice != "4" && choice != "5" && choice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Category menu: ");
                 choice = Console.ReadLine();
             }
 
@@ -776,7 +798,7 @@ namespace ToolLibrary
         /// <param name="toolSystem"> the tool library system </param>
         /// <param name="toolType"> given tool type </param>
         /// <returns> the added tool </returns>
-        public static Tool AddATool(ToolLibrarySystem toolSystem, string toolType)
+        private static Tool AddATool(ToolLibrarySystem toolSystem, string toolType)
         {
             Console.Write("Please enter a tool name: ");
             string toolName = Console.ReadLine();
@@ -786,7 +808,8 @@ namespace ToolLibrary
 
             int quantity;
 
-            while (!int.TryParse(quantityString, out quantity)) {
+            while (!int.TryParse(quantityString, out quantity))
+            {
                 Console.Write("Wrong input! Please enter an integer value: ");
                 quantityString = Console.ReadLine();
             }
@@ -794,14 +817,18 @@ namespace ToolLibrary
 
             Tool tool = new Tool(toolName);
             ToolCollection toolsInTheToolType = null;
-            for (int i = 0; i < allToolCollections.Length; i++) {
-                if (toolType == allToolCollections[i].Name) {
+            for (int i = 0; i < allToolCollections.Length; i++)
+            {
+                if (toolType == allToolCollections[i].Name)
+                {
                     toolsInTheToolType = allToolCollections[i];
                 }
             }
 
-            for (int i = 0; i < toolsInTheToolType.Number; i++) {
-                if (toolName == toolsInTheToolType.toArray()[i].Name) {
+            for (int i = 0; i < toolsInTheToolType.Number; i++)
+            {
+                if (toolName == toolsInTheToolType.toArray()[i].Name)
+                {
                     tool = toolsInTheToolType.toArray()[i];
 
                     Console.WriteLine("\nThe tool you want to add is already in the system, new pieces of this tool will be added.");
@@ -820,11 +847,13 @@ namespace ToolLibrary
         /// create a member
         /// </summary>
         /// <returns> the member created</returns>
-        public static Member CreateMember() {
+        private static Member CreateMember()
+        {
             Console.Write("\nPlease enter first name:         ");
             string firstName = Console.ReadLine();
 
-            while (!Char.IsUpper(firstName[0])) {
+            while (!Char.IsUpper(firstName[0]))
+            {
                 Console.Write("\nThe first letter needs to be capitalised, please try again: ");
                 firstName = Console.ReadLine();
             }
@@ -864,7 +893,8 @@ namespace ToolLibrary
         /// <summary>
         /// return to the staff menu
         /// </summary>
-        public static void ReturnToStaffMenu() {
+        private static void ReturnToStaffMenu()
+        {
             Console.WriteLine("\nPlease enter 0 to return to Staff menu:  ");
             staffName = "staff";
             staffPin = "today123";
@@ -880,8 +910,9 @@ namespace ToolLibrary
         /// <summary>
         /// return to the member menu
         /// </summary>
-        public static void ReturnToMemberMenu() {
-            Console.WriteLine("\nPlease enter 0 to return to Member menu: ");
+        private static void ReturnToMemberMenu()
+        {
+            Console.Write("\nPlease enter 0 to return to Member menu: ");
             string choice = Console.ReadLine();
             while (choice != "0")
             {
@@ -894,11 +925,12 @@ namespace ToolLibrary
         /// return to the main menu
         /// </summary>
         /// <param name="toolSystem"> the tool library system</param>
-        public static void ReturnToMainMenu(ToolLibrarySystem toolSystem) {
+        private static void ReturnToMainMenu(ToolLibrarySystem toolSystem)
+        {
             Console.Clear();
             string choice = DisplayMainMenu();
             ProcessMainMenu(choice, toolSystem);
-         }
+        }
 
         /// <summary>
         /// process a selection in the main menu
@@ -982,8 +1014,8 @@ namespace ToolLibrary
                     while (!LoginAMember())
                     {
                         Console.Clear();
-                        Console.WriteLine("Wrong member name or pin! Please use the format LastnameFirstname to log in!");
-                        Console.WriteLine("\nEnter 0 to return to Main menu or ");
+                        Console.Write("Wrong member name or pin! Please use the format LastnameFirstname to log in!");
+                        Console.Write("\nEnter 0 to return to Main menu or ");
                         Console.Write("press any other key to try again: ");
 
                         memberName = "";
@@ -1027,12 +1059,12 @@ namespace ToolLibrary
         /// </summary>
         /// <param name="staffChoice"> selection made in the staff menu </param>
         /// <param name="system"> the tool libary system</param>
-        public static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
+        private static void ProcessStaffChoice(string staffChoice, ToolLibrarySystem system)
         {
             while (staffChoice != "0" && staffChoice != "1" && staffChoice != "2" &&
                    staffChoice != "3" && staffChoice != "4" && staffChoice != "5" && staffChoice != "6")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-6) or 0 to return to Main menu: ");
                 staffChoice = Console.ReadLine();
             }
 
@@ -1064,7 +1096,7 @@ namespace ToolLibrary
 
                 while (choice != "1" && choice != "0")
                 {
-                    Console.WriteLine("Wrong Selection! Please enter 1 to add a new tool or 0 to return to Staff menu: ");
+                    Console.Write("Wrong Selection! Please enter 1 to add a new tool or 0 to return to Staff menu: ");
                     choice = Console.ReadLine();
                 }
 
@@ -1128,14 +1160,14 @@ namespace ToolLibrary
                 Console.Clear();
                 system.displayTools(toolType);
                 ToolCollection displayedTools = GetDisplayedTools(toolType);
-                Console.WriteLine("\n\nPlease make a selection from the tools above: ");
+                Console.Write("\n\nPlease make a selection from the tools above: ");
                 string choiceString = Console.ReadLine();
 
                 int indexChoice;
 
                 while (!int.TryParse(choiceString, out indexChoice) || indexChoice > displayedTools.Number || indexChoice <= 0)
                 {
-                    Console.WriteLine("Wrong input! Please make a selection from the tools above: ");
+                    Console.Write("Wrong input! Please make a selection from the tools above: ");
                     choiceString = Console.ReadLine();
                 }
 
@@ -1185,14 +1217,14 @@ namespace ToolLibrary
             {
                 Console.Clear();
                 DisplayMembers();
-                Console.WriteLine("\n\nPlease select the member you want to remove or enter 0 to return to Staff menu: ");
+                Console.Write("\n\nPlease select the member you want to remove or enter 0 to return to Staff menu: ");
 
                 int indexChoice;
                 string choiceString = Console.ReadLine();
 
                 while (!int.TryParse(choiceString, out indexChoice) || indexChoice <= 0 || indexChoice > validMemberNum)
                 {
-                    Console.WriteLine("Wrong input! Please make a selection from the member IDs above: ");
+                    Console.Write("Wrong input! Please make a selection from the member IDs above: ");
                     choiceString = Console.ReadLine();
                 }
 
@@ -1234,15 +1266,17 @@ namespace ToolLibrary
                     }
                 }
 
-                if (!foundMember) {
+                if (!foundMember)
+                {
                     Console.WriteLine("\nMember not found! Please try again.");
-   
+
                 }
 
                 Console.WriteLine("\n\n0. Return to staff menu");
                 ReturnToStaffMenu();
             }
-            else {
+            else
+            {
                 staffName = "";
                 staffPin = "";
                 ReturnToMainMenu(system);
@@ -1254,10 +1288,11 @@ namespace ToolLibrary
         /// </summary>
         /// <param name="memberChoice"> selection made</param>
         /// <param name="system"> the tool library system </param>
-        public static void ProcessMemberChoice(string memberChoice, ToolLibrarySystem system) {
+        private static void ProcessMemberChoice(string memberChoice, ToolLibrarySystem system)
+        {
             while (memberChoice != "0" && memberChoice != "1" && memberChoice != "2" && memberChoice != "3" && memberChoice != "4" && memberChoice != "5")
             {
-                Console.WriteLine("Wrong Selection! Please make a selection (1-5) or 0 to return to Main menu: ");
+                Console.Write("Wrong Selection! Please make a selection (1-5) or 0 to return to Main menu: ");
                 memberChoice = Console.ReadLine();
             }
 
@@ -1313,14 +1348,15 @@ namespace ToolLibrary
                 string choiceString = Console.ReadLine();
                 int indexChoice;
 
-                while (!int.TryParse(choiceString, out indexChoice) || indexChoice <= 0 || indexChoice > borrowedTools.Length )
+                while (!int.TryParse(choiceString, out indexChoice) || indexChoice <= 0 || indexChoice > borrowedTools.Length)
                 {
                     if (indexChoice != 0)
                     {
                         Console.Write("Wrong input! Please make a selection from the tools above or press 0 return to Member menu: ");
                         choiceString = Console.ReadLine();
                     }
-                    else {
+                    else
+                    {
                         ProcessMainMenu("2", system);
 
                     }
@@ -1357,7 +1393,8 @@ namespace ToolLibrary
                 Console.Write("\nPress any key to continue.");
                 Console.ReadKey();
             }
-            else {
+            else
+            {
                 memberName = "";
                 ReturnToMainMenu(system);
             }
@@ -1366,7 +1403,7 @@ namespace ToolLibrary
 
 
     }
-        
+
 
 
 }
