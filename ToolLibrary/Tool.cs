@@ -29,12 +29,12 @@ namespace ToolLibrary
         /// <summary>
         /// add a borrower to tool's borrowing member collection
         /// </summary>
-        /// <param name="member"> member who borrows this tool </param>
-        public void addBorrower(Member member)
+        /// <param name="aMember"> member who borrows this tool </param>
+        public void addBorrower(Member aMember)
         {
             if (availableQuantity > 0)
             {
-                toolBorrowers.add(member);
+                toolBorrowers.add(aMember);
                 noBorrowings++;
                 availableQuantity--;
             }
@@ -44,9 +44,9 @@ namespace ToolLibrary
         /// delete a borrower to tool's borrowing member collection
         /// </summary>
         /// <param name="member"> member who returns this tool </param>
-        public void deleteBorrower(Member member)
+        public void deleteBorrower(Member aMember)
         {
-            toolBorrowers.delete(member);
+            toolBorrowers.delete(aMember);
             availableQuantity++;
         }
 

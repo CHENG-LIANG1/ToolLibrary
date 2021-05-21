@@ -11,11 +11,12 @@ namespace ToolLibrary
         // private fields
         private int number;
         private Tool[] toolCollection;
-        private string name; // for identifying tool types
 
+        private readonly string name; // for identifying tool types
+        public string Name { get { return name; } }
         // properties
         public int Number { get { return number; } }
-        public string Name { get { return name; } }
+
 
         // constructor
         public ToolCollection(string name) {
@@ -26,11 +27,11 @@ namespace ToolLibrary
         /// <summary>
         /// private method to find the index of a tool in the collection
         /// </summary>
-        /// <param name="tool"> tool to find </param>
+        /// <param name="aTool"> tool to find </param>
         /// <returns> index of the tool if found, -1 otherwise </returns>
-        private int findToolIndex(Tool tool) {
+        private int findToolIndex(Tool aTool) {
             for (int i = 0; i < toolCollection.Length; i++) {
-                if (toolCollection[i] != null && toolCollection[i].Name == tool.Name)
+                if (toolCollection[i] != null && toolCollection[i].Name == aTool.Name)
                 {
                     return i;
                 }
@@ -69,8 +70,8 @@ namespace ToolLibrary
         /// <summary>
         /// add a tool to the tool collection
         /// </summary>
-        /// <param name="tool"> tool to add </param>
-        public void add(Tool tool)
+        /// <param name="aTool"> tool to add </param>
+        public void add(Tool aTool)
         {
             number++;
             toolCollection = resizeArray(toolCollection);
@@ -78,7 +79,7 @@ namespace ToolLibrary
             {
                 if (toolCollection[i] == null)
                 {
-                    toolCollection[i] = tool;
+                    toolCollection[i] = aTool;
                     break;
                 }
             }
@@ -87,10 +88,10 @@ namespace ToolLibrary
         /// <summary>
         /// delete a tool from the tool collection
         /// </summary>
-        /// <param name="tool"> tool to delete </param>
-        public void delete(Tool tool)
+        /// <param name="aTool"> tool to delete </param>
+        public void delete(Tool aTool)
         {
-            int index = findToolIndex(tool);
+            int index = findToolIndex(aTool);
             if (index >=0) {
                 toolCollection[index] = null;
                 number--;
@@ -101,11 +102,11 @@ namespace ToolLibrary
         /// <summary>
         /// search for a tool in the tool collection
         /// </summary>
-        /// <param name="tool"> tool to search </param>
+        /// <param name="aTool"> tool to search </param>
         /// <returns> true if found, false otherwise </returns>
-        public bool search(Tool tool) 
+        public bool search(Tool aTool) 
         {
-            if (findToolIndex(tool) >= 0) {
+            if (findToolIndex(aTool) >= 0) {
                 return true;
             }
             return false;
