@@ -99,8 +99,8 @@ namespace ToolLibrary
             // adding dummy tools for testing
             for (int i = 0; i < allToolCollections.Length; i++)
             {
-                allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 1"));
-                allToolCollections[i].add(new Tool(allToolCollections[i].Name + " Tool 2"));
+                allToolCollections[i].add(new Tool(allToolCollections[i].ToString() + " Tool 1"));
+                allToolCollections[i].add(new Tool(allToolCollections[i].ToString() + " Tool 2"));
             }
 
             return allToolCollections;
@@ -165,7 +165,7 @@ namespace ToolLibrary
             ToolCollection displayedTools = new ToolCollection("Displayed Tools");
             for (int i = 0; i < allToolCollections.Length; i++)
             {
-                if (allToolCollections[i].Name == aToolType)
+                if (allToolCollections[i].ToString() == aToolType)
                 {
                     for (int j = 0; j < allToolCollections[i].Number; j++)
                     {
@@ -880,7 +880,7 @@ namespace ToolLibrary
             ToolCollection toolsInTheToolType = null;
             for (int i = 0; i < allToolCollections.Length; i++)
             {
-                if (toolType == allToolCollections[i].Name)
+                if (toolType == allToolCollections[i].ToString())
                 {
                     toolsInTheToolType = allToolCollections[i];
                 }
@@ -1194,9 +1194,9 @@ namespace ToolLibrary
                 string quantityString = Console.ReadLine();
                 int quantity;
 
-                while (!int.TryParse(quantityString, out quantity))
+                while (!int.TryParse(quantityString, out quantity) || quantity < 0)
                 {
-                    Console.Write("Wrong input! Please enter an integer value: ");
+                    Console.Write("Wrong input! Please enter a positive integer value: ");
                     quantityString = Console.ReadLine();
                 }
 

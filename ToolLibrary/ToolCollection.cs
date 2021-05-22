@@ -13,7 +13,7 @@ namespace ToolLibrary
         private Tool[] toolCollection;
 
         private readonly string name; // for identifying tool types
-        public string Name { get { return name; } }
+
         // properties
         public int Number { get { return number; } }
 
@@ -119,6 +119,16 @@ namespace ToolLibrary
         public Tool[] toArray()
         {
             return toolCollection;
+        }
+
+        /// <summary>
+        /// Returns the name of the tool collection
+        /// Note: I have declared and clarified thid method in the report
+        /// </summary>
+        /// <returns> the name of the tool collection </returns>
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

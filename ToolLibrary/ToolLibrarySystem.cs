@@ -33,7 +33,7 @@ namespace ToolLibrary
         {
             for (int i = 0; i < toolCollections.Length; i++)
             {
-                if (toolCollections[i].Name == UserInterface.GetCurrentlySelectedToolType())
+                if (toolCollections[i].ToString() == UserInterface.GetCurrentlySelectedToolType())
                 {
                     toolCollections[i].add(aTool);
                 }
@@ -160,7 +160,7 @@ namespace ToolLibrary
             Console.WriteLine("   {0, -25}{1, -14}{2, -10}{3, -10}", "Name", "Available", "Total", "Total Borrowings");
             for (int i = 0; i < toolCollections.Length; i++)
             {
-                if (toolCollections[i].Name == aToolType)
+                if (toolCollections[i].ToString() == aToolType)
                 {
                     for (int j = 0; j < toolCollections[i].Number; j++)
                     {
@@ -183,6 +183,8 @@ namespace ToolLibrary
 
         /// <summary>
         /// display the top three borrowed tools
+        /// an array containng distinct borrowed tool has been created.
+        /// This method will only sort the tools which has been borrowed before
         /// </summary>
         public void displayTopThree()
         {
