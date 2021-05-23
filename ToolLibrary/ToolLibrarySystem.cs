@@ -13,15 +13,15 @@ namespace ToolLibrary
         // private fields
         private MemberCollection members;
         private ToolCollection[] toolCollections;
-        private List<Tool> borrowedToolsList; // all the tools that have been borrowed before
-        private Tool[] borrowedToolsArray;
+        private List<Tool> borrowedTools; // all the tools that have been borrowed before
+
 
         // constructor
         public ToolLibrarySystem()
         {
             toolCollections = UserInterface.GetAllToolCollections();
             members = UserInterface.GetMemberCollection();
-            borrowedToolsList = new List<Tool>();
+            borrowedTools = new List<Tool>();
         }
 
 
@@ -74,9 +74,9 @@ namespace ToolLibrary
                 {
                     aMember.addTool(aTool);
                     aTool.addBorrower(aMember);
-                    borrowedToolsList.Add(aTool); // add the borrowed tool to the list
-                    borrowedToolsList = borrowedToolsList.Distinct().ToList(); // remove duplicate tools
-                    borrowedToolsArray = borrowedToolsList.ToArray(); // convert the list to an array
+                    borrowedTools.Add(aTool); // add the borrowed tool to the list
+                    borrowedTools = borrowedTools.Distinct().ToList(); // remove duplicate tools
+     
                     return true;
                 }
                 else
@@ -118,9 +118,9 @@ namespace ToolLibrary
         /// <summary>
         /// delete some pieces of an existing tool from the system
         /// </summary>
-        /// <param name="aTool"></param>
-        /// <param name="quantity"></param>
-        public void delete(Tool aTool, int quantity) // the situation 'quantity > available quantity' has been handled in UserInterface class
+        /// <param name="aTool"> Tool to remove pieves</param>
+        /// <param name="quantity"> quantity of pieces to remove </param>
+        public void delete(Tool aTool, int quantity) // the situation 'quantity to delete > available quantity' has been handled in UserInterface class
                                                      // so the avaiable quantity is always greater than the quantity to delete in this block of code
         {
             aTool.AvailableQuantity -= quantity;
@@ -188,29 +188,29 @@ namespace ToolLibrary
         /// </summary>
         public void displayTopThree()
         {
-            for (int i = 0; i < borrowedToolsArray.Length - 1; i++)
+            for (int i = 0; i < borrowedTools.Count - 1; i++)
             {
-                for (int j = 0; j < borrowedToolsArray.Length - 1 - i; j++)
+                for (int j = 0; j < borrowedTools.Count - 1 - i; j++)
                 {
-                    if (borrowedToolsArray[j + 1].NoBorrowings < borrowedToolsArray[j].NoBorrowings)
+                    if (borrowedTools[j + 1].NoBorrowings < borrowedTools[j].NoBorrowings)
                     {
-                        Tool temp = borrowedToolsArray[j];
-                        borrowedToolsArray[j] = borrowedToolsArray[j + 1];
-                        borrowedToolsArray[j + 1] = temp;
+                        Tool temp = borrowedTools[j];
+                        borrowedTools[j] = borrowedTools[j + 1];
+                        borrowedTools[j + 1] = temp;
                     }
                 }
             }
 
-            if (borrowedToolsArray[^1].NoBorrowings > 0)
-                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedToolsArray[^1].Name, borrowedToolsArray[^1].NoBorrowings);
+            if (borrowedTools[^1].NoBorrowings > 0)
+                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedTools[^1].Name, borrowedTools[^1].NoBorrowings);
 
 
-            if (borrowedToolsArray.Length > 1 && borrowedToolsArray[^2].NoBorrowings > 0)
-                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedToolsArray[^2].Name, borrowedToolsArray[^2].NoBorrowings);
+            if (borrowedTools.Count > 1 && borrowedTools[^2].NoBorrowings > 0)
+                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedTools[^2].Name, borrowedTools[^2].NoBorrowings);
 
 
-            if (borrowedToolsArray.Length > 2 && borrowedToolsArray[^3].NoBorrowings > 0)
-                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedToolsArray[^3].Name, borrowedToolsArray[^3].NoBorrowings);
+            if (borrowedTools.Count > 2 && borrowedTools[^3].NoBorrowings > 0)
+                Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedTools[^3].Name, borrowedTools[^3].NoBorrowings);
 
         }
 
