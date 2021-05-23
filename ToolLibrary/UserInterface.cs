@@ -1237,7 +1237,7 @@ namespace ToolLibrary
                 string quantityString = Console.ReadLine();
                 int quantity;
 
-                while (!int.TryParse(quantityString, out quantity) || quantity > selectedTool.AvailableQuantity)
+                while (!int.TryParse(quantityString, out quantity) || quantity >= selectedTool.AvailableQuantity)
                 {
                     Console.Write("Wrong input! Please enter an integer value less than available quantity: ");
                     quantityString = Console.ReadLine();
