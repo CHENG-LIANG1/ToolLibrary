@@ -178,9 +178,6 @@ namespace ToolLibrary
             Console.WriteLine();
         }
 
-
-
-
         /// <summary>
         /// display the top three borrowed tools
         /// an array containng distinct borrowed tool has been created.
