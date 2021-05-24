@@ -9,7 +9,13 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class UserInterface
     {
+        private ToolCollection[] allToolCollections;
 
+        private MemberCollection members;
+        public UserInterface() {
+            allToolCollections = GetToolDatabase();
+            members = new MemberCollection();
+        }
         // these are used to keep the staff signed in, they are set to empty string when staff goes back to main menu
         private static string staffName = "";
         private static string staffPin = "";
@@ -27,9 +33,7 @@ namespace ToolLibrary
 
         private static bool toolHasSameName = false; // handle the situation where staff tries to add a new tool while this tool already exists in the system
 
-        private static ToolCollection[] allToolCollections = GetToolDatabase();
 
-        private static MemberCollection members = new MemberCollection();
 
         /// <summary>
         /// setup the tool collections and add dummy tools to them
@@ -863,10 +867,15 @@ namespace ToolLibrary
         {
             Console.Write("Please enter a tool name: ");
             string toolName = Console.ReadLine();
+
+            while (toolName.Length == 0) {
+                Console.Write("Please do not leave the tool name empty: ");
+                toolName = Console.ReadLine();
+            }
+
             Console.Write("Please enter a quantity: ");
 
             string quantityString = Console.ReadLine();
-
             int quantity;
 
             while (!int.TryParse(quantityString, out quantity))
