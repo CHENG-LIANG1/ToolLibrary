@@ -188,6 +188,7 @@ namespace ToolLibrary
         /// </summary>
         public void displayTopThree()
         {
+            // Buble sort the borrowed tools list
             for (int i = 0; i < borrowedTools.Count - 1; i++)
             {
                 for (int j = 0; j < borrowedTools.Count - 1 - i; j++)
@@ -201,6 +202,7 @@ namespace ToolLibrary
                 }
             }
 
+            // display the top three tools
             if (borrowedTools[^1].NoBorrowings > 0)
                 Console.WriteLine("{0, -25}  Total Borrowings: {1, -20}", borrowedTools[^1].Name, borrowedTools[^1].NoBorrowings);
 
