@@ -9,13 +9,10 @@ namespace ToolLibrary
     // Studen ID: N10346911
     class UserInterface
     {
-        private ToolCollection[] allToolCollections;
+        private static ToolCollection[] allToolCollections = GetToolDatabase();
 
-        private MemberCollection members;
-        public UserInterface() {
-            allToolCollections = GetToolDatabase();
-            members = new MemberCollection();
-        }
+        private static MemberCollection members = new MemberCollection();
+
         // these are used to keep the staff signed in, they are set to empty string when staff goes back to main menu
         private static string staffName = "";
         private static string staffPin = "";
